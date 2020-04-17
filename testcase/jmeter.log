@@ -1,0 +1,58 @@
+2020-03-15 07:01:32,752 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2020-03-15 07:01:32,767 INFO o.a.j.JMeter: Loading user properties from: /usr/local/jmeter/bin/user.properties
+2020-03-15 07:01:32,767 INFO o.a.j.JMeter: Loading system properties from: /usr/local/jmeter/bin/system.properties
+2020-03-15 07:01:32,768 INFO o.a.j.JMeter: Copyright (c) 1998-2019 The Apache Software Foundation
+2020-03-15 07:01:32,768 INFO o.a.j.JMeter: Version 5.2.1
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: java.version=1.8.0_241
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: os.name=Linux
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: os.arch=amd64
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: os.version=4.15.0-55-generic
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: file.encoding=UTF-8
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: java.awt.headless=true
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: Max memory     =1073741824
+2020-03-15 07:01:32,769 INFO o.a.j.JMeter: Available Processors =4
+2020-03-15 07:01:32,773 INFO o.a.j.JMeter: Default Locale=English (EN)
+2020-03-15 07:01:32,774 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2020-03-15 07:01:32,774 INFO o.a.j.JMeter: JMeterHome=/usr/local/jmeter
+2020-03-15 07:01:32,774 INFO o.a.j.JMeter: user.dir  =/root/seera-testing/testcase
+2020-03-15 07:01:32,774 INFO o.a.j.JMeter: PWD       =/root/seera-testing/testcase
+2020-03-15 07:01:32,774 INFO o.a.j.JMeter: IP: 127.0.1.1 Name: seera FullName: seera
+2020-03-15 07:01:32,779 INFO o.a.j.s.FileServer: Default base='/root/seera-testing/testcase'
+2020-03-15 07:01:32,783 INFO o.a.j.s.FileServer: Set new base='/root/seera-testing/testcase'
+2020-03-15 07:01:32,923 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2020-03-15 07:01:32,933 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2020-03-15 07:01:32,938 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2020-03-15 07:01:32,947 INFO o.a.j.s.SaveService: Loading file: seera-single.jmx
+2020-03-15 07:01:32,999 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-15 07:01:32,999 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-15 07:01:32,999 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-15 07:01:32,999 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-03-15 07:01:32,999 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2020-03-15 07:01:32,999 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2020-03-15 07:01:33,037 INFO o.a.j.JMeter: Creating summariser <summary>
+2020-03-15 07:01:33,043 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2020-03-15 07:01:33,044 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2020-03-15 07:01:33,044 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2020-03-15 07:01:33,050 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2020-03-15 07:01:33,050 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2020-03-15 07:01:33,410 INFO o.a.j.JMeter: Running test (1584255693410)
+2020-03-15 07:01:33,451 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : testing
+2020-03-15 07:01:33,451 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group testing.
+2020-03-15 07:01:33,451 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2020-03-15 07:01:33,451 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2020-03-15 07:01:33,456 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2020-03-15 07:01:33,456 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2020-03-15 07:01:33,459 INFO o.a.j.t.JMeterThread: Thread started: testing 1-1
+2020-03-15 07:01:33,483 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = seera
+2020-03-15 07:01:33,491 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2020-03-15 07:01:33,493 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2020-03-15 07:01:33,493 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2020-03-15 07:01:33,493 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2020-03-15 07:01:33,493 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2020-03-15 07:01:33,777 INFO o.a.j.r.Summariser: summary +      1 in 00:00:00 =    2.7/s Avg:   187 Min:   187 Max:   187 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
+2020-03-15 07:01:33,830 INFO o.a.j.t.JMeterThread: Thread is done: testing 1-1
+2020-03-15 07:01:33,830 INFO o.a.j.t.JMeterThread: Thread finished: testing 1-1
+2020-03-15 07:01:33,831 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2020-03-15 07:01:33,832 INFO o.a.j.r.Summariser: summary +      1 in 00:00:00 =   18.2/s Avg:    52 Min:    52 Max:    52 Err:     0 (0.00%) Active: 0 Started: 1 Finished: 1
+2020-03-15 07:01:33,832 INFO o.a.j.r.Summariser: summary =      2 in 00:00:00 =    4.7/s Avg:   119 Min:    52 Max:   187 Err:     0 (0.00%)

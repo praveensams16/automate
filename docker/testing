@@ -1,0 +1,35 @@
+pipeline {
+	agent none
+	
+
+      parameters {
+                 string(defaultValue: "5", description: "Duration in Minutes : default 5 minutes", name: 'Duration')
+                 }
+
+     environment {
+                 PERIOD="${params.Duration}"
+                 }
+
+
+	stages {
+
+
+
+
+      stage("Click to see live logs") {
+            agent { node { label 'master' } }
+            steps {
+
+                sh '''
+                    python -c 'print("#"*125)'
+                    echo -e "\t\tLogs"
+                    python -c 'print("#"*125)'
+                    s=$(($PERIOD*60)) 
+                    live $s || true
+                '''
+                }
+              }
+            }
+
+          }
+

@@ -1,0 +1,32 @@
+
+pipeline {
+        agent none
+
+        parameters {
+				string(defaultValue: "latest", description: 'Enter the tag name', name: 'tags')
+                }
+
+stages {
+      stage("downloading code") {
+          agent { node { label 'kubnode' } }
+    scripts {
+	if (  "x params.var" =~ 'x' )
+		{
+		echo "value is not empty"
+		}
+	}
+    steps
+		{
+		docker_build()
+		}
+	}
+	}
+}
+
+def docker_build()
+	{
+	echo "hii"
+	}
+
+
+

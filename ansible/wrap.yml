@@ -1,0 +1,5 @@
+- hosts: dev
+  become: true
+
+  roles:
+    - "deployment"

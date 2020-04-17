@@ -1,0 +1,179 @@
+pipeline {
+
+    agent { node { label 'master' } }
+	parameters {
+			string(defaultValue: "1.0.0.1", description: 'Package version : default 1.0.0.1', name: 'var')
+			string(defaultValue: "no", description: 'By default tagging will be no , type yes if you need', name: 'tagging')
+		 }
+    environment {
+            VERSION="${params.var}"
+                }
+	
+	stages {
+		stage("Git url") {
+		agent { node { label 'master' } }
+		environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			git credentialsId: 'da238835-2fd4-4e60-ab9f-96685f5a3b52', url: 'https://github.com/Seeragroup/TAS.git'
+			sh '''
+				which java
+				which mvn
+				echo "$VERSION"
+				'''
+				}
+			}
+	
+		stage('Testing Code') {
+			agent { node { label 'master' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh ''' 
+            cp -rvf python/regx.py /tmp
+			git checkout master
+            #python /tmp/regx.py > /tmp/proper
+            #sudo cp /tmp/proper ./src/main/resources/application.properties
+            mvn test
+			'''
+			}
+			}
+		
+		stage('Sonar Scanner') {
+			agent { node { label 'master' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh '''
+            pwd
+            find . -name 'sonar.py' -type f
+            cp docker/sonar.py /tmp/sonar.py
+            sleep 2
+            git checkout master
+            sleep 2
+            python /tmp/sonar.py $(pwd) | sudo tee /tmp/pom.xml
+             sleep 1
+             cp  /tmp/pom.xml . -f
+             sleep 1
+             mvn sonar:sonar
+
+			'''
+			}
+			}
+
+		stage('Generating package out of maven') {
+			agent { node { label 'master' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh ''' 
+            #cp -rvf config/property /tmp/
+			git checkout master
+            #python /tmp/regx.py
+			mvn versions:set -DnewVersion=${VERSION}-SNAPSHOT 
+            ls -l ./src/main/resources/application.properties
+            #sudo cp -rvf /tmp/property ./src/main/resources/application.properties 
+            #sudo cp /tmp/proper ./src/main/resources/application.properties
+            mvn package
+            pwd
+            ls -l 
+            find . -name  '*.jar'
+		    sudo cp -rvf ./target/tas-${VERSION}-SNAPSHOT.jar /artifacts	
+			'''.stripIndent()
+			}
+			}
+
+		stage("Running Ansible exec") {
+		   agent { node { label 'master' } }
+			environment {
+        ANSIBLE_CONFIG='../config/ansible.cfg'
+				}	
+		   steps {
+			sh '''
+			cd docker
+			ansible-playbook wrap.yml  -e "rolename=deployment" -e "VERSION=${VERSION}"
+			'''
+					script {
+						runs("/tmp/proper")
+							}
+			}
+			}
+        stage("Viewing Junit test case") {
+            agent { node { label 'master' } }
+            steps {
+                junit allowEmptyResults: true, testResults: './target/surefire-reports/TEST-com.seera.tas.TasApplicationTests.xml'
+                }
+                }
+         stage("Tagging Version number") {
+            agent { node { label 'master' } }
+            steps {
+                sh '''
+                   sudo cp -rvf shell/tagging /bin/
+                   sudo chmod +x /bin/tagging
+                   if ( echo "${tagging}" | grep  "yes" ) 2> /dev/null
+                   then
+                        tagging "${VERSION}-$(date +%y%b%d-%H%M)"
+                    else
+                        echo "Tagging not selected"
+                    fi
+                    echo  "${JENKINS_URL}/job/${JOB_NAME}/${BUILD_NUMBER}/console" | sudo tee /tmp/log.txt
+
+                    { echo ; echo "Below are the changes " ; python -c 'print("#"*125)' ; echo  ; cat /var/lib/jenkins/jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/changelog*.xml ; } | sudo tee -a /tmp/log.txt
+                    { python -c 'print("#"*125)' ;  echo ; echo; echo  "Overall job status will be in below link \n ${JENKINS_URL}/job/${JOB_NAME}/" ; } | sudo tee -a /tmp/log.txt
+                    rm -rf * .git .gitignore
+                    echo "Removed older workspace"
+                  '''
+                }
+                 }                           
+
+
+        stage("Running Jmeter") {
+           agent { node { label 'master' } }
+           environment {
+               PATH = "/usr/local/jmeter/bin:$PATH"
+                    }
+           steps {
+                sh '''
+                    sudo rm -rf /tmp/sam.jtl
+                    jmeter -n -t testcase/seera-tas.jmx -l /tmp/sam.jtl
+                    if ( ! grep '200' /tmp/sam.jtl )
+                    then
+                        false
+                    fi
+                    python -c 'print("#"*125)'
+                    cat /tmp/sam.jtl
+                    python -c 'print("#"*125)'
+                    '''
+                    }
+                    }
+                    }
+	post {
+		always {
+            echo "Completed"
+        }
+       failure {
+        sh '''
+        python python/email-failure.py  /tmp/log.txt ${VERSION}
+        '''
+            }
+       success {
+       sh '''
+       python python/emails.py /tmp/log.txt ${VERSION}
+       '''
+       }
+
+    }
+    }
+
+
+
+
+def runs(location) {
+	sh '''
+       rm -rf  ''' + location + '''
+		'''
+		}

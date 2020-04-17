@@ -1,0 +1,54 @@
+- name: installing epel-release
+  package:
+    name: "epel-release"
+    state: "latest"
+  when: ( ansible_os_family == 'RedHat' )
+
+- name: installing epel-release
+  package:
+    name: ["nginx","mod_ssl"]
+    state: "latest"
+  when: ( ansible_os_family == 'RedHat' )
+
+- name: creating  directory 
+  file:
+    path: /var/certificates
+    state: directory
+
+- name: Copying certificate to directory location 
+  copy:
+    src: "{{item}}"
+    dest: "/var/certificates/{{item}}"
+  loop:
+    - "nginx.key"
+    - "nginx.crt"
+  notify: "restart"
+
+- name: restarting immdiately
+  meta: flush_handlers
+
+- name: Copying nginx configuration file
+  template:
+    src: "nginx.conf.j2"
+    dest: "/etc/nginx/nginx.conf"
+  notify: "restart"
+
+- name: starting service
+  service:
+    name: "nginx"
+    state: "started"
+
+- name: service pause
+  pause:
+    seconds: 2
+
+- name: Finding the post is listening 
+  telnets:
+    ipaddress: "{{ipaddr}}"
+    port: 443 
+  register: listens
+
+- name: debugging
+  debug:
+    msg: "{{listens}}"
+

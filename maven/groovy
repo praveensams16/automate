@@ -1,0 +1,54 @@
+#!/usr/bin/env groovy
+sam="sam in home"
+class a 
+	{
+
+
+def ready(name)
+	{
+	return name + 4
+	}
+
+	}
+
+pipeline {
+    agent none
+    environment {
+     name = 'Just to print'
+        }
+
+    options {
+		buildDiscarder(logRotator(numToKeepStr:'4'))
+			}
+
+    parameters {
+         choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+         }
+
+    stages {
+
+        stage("Checking out newcode") {
+        agent { node { label 'node03' } }
+        environment {
+            name = 'Just to print'
+            }
+            when {
+                expression { params.var =~ 'a|A' }
+                }
+            steps {
+            git credentialsId: 'ac6e5816-35a9-4d2d-9685-6bf68d5f8f16', url: 'https://github.com/praveensams/mavencode.git'
+            script {
+              def a=10
+			  if ( sam =~ /m.*?me/ )
+			  	{
+			  	println sam
+				}
+                	}
+                		}		
+
+		}
+		}
+		
+
+	}
+

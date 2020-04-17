@@ -1,0 +1,119 @@
+
+    pipeline {
+            agent none
+
+			  parameters {
+                         string(defaultValue: "latest", description: 'Enter the tag name', name: 'version')
+                         }
+
+    
+    	stages {
+    
+    	stage("cloning the repository") {
+    
+      	     agent { node { label 'master' } }
+    
+    	     steps  {
+    	          
+					git branch: 'develop', credentialsId: '1d16b3a0-b904-4b39-a90b-89ca15426045', url: 'https://extra.codefactori.com/bitbucket/scm/mon/phoenix.git'
+
+    				sh label: ' ', script: '''
+		            echo "${version}" > /tmp/version
+    					pwd
+    					ls -l
+    					'''
+                } 
+    	     }
+          
+    	stage("Building the files")
+    	 	{
+    		agent { node { label 'master' } }
+    		 steps {
+				script {
+    
+    		 sh label: '', script: '''
+    		git checkout master
+            pwd
+    		ls -l
+   		    [ -d bin ] || cp -rp  /hybris/hybris/bin .
+    
+            echo $(date +%d%b%Y-%H) > /tmp/versions
+            
+            tar -cvf /tmp/code.tar custom/extra/extrastorefront/web/webroot/_ui/responsive/theme-extra/images
+            sed -i \'s/^project.version=.*/project.version=\'$version\'/g\' custom/extra/extracore/project.properties
+            { cat config/local.properties ; echo \'## Jenkins Modification\' ; } | perl -ane \'s/localhost\\:3306/10.0.0.4\\:3306/g;print\' | tee  /tmp/local.properties
+             { cat custom/extra/extratest/project.properties ; echo \'## Jenkins Modification\' ; } | perl -ane \'s/localhost\\:8800/10.0.0.4\\:9000/g;print\' | tee /tmp/project.properties
+            sleep 4
+            cp -rvf /tmp/project.properties custom/extra/extratest/
+            sleep 4
+            cp -rvf /tmp/local.properties  config/local.properties
+            rm -rf custom/extra/extracore/src/com/extra/core/jalo
+            ls -l custom/extra/extracore/src/com/extra/core/ | grep -i jalo || true
+            ls -l
+            sleep 2
+            cd bin/platform
+            . ./setantenv.sh
+            ( cd ../../ && pwd && ls )
+            echo "Deleting custom/extra/payfort/payfortcore/src/com/extra/payfort/jalo/PayfortTransaction.java"
+            rm -rvf /var/jenkins_home/workspace/hybris-package-pipeline-develop/custom/extra/payfort/payfortcore/src/com/extra/payfort/jalo/PayfortTransaction.java
+            
+            rm -rvf /var/jenkins_home/workspace/hybris-package-pipeline-develop/custom/extra/payfort/payfortcore/src/com/extra/payfort/jalo
+            
+            ls -l /var/jenkins_home/workspace/hybris-package-pipeline-develop/custom/extra/payfort/payfortcore/src/com/extra/payfort/jalo || { echo \'Deleted the folder\' ; true ; }
+            sleep 1
+            
+            ls -l /var/jenkins_home/workspace/hybris-package-pipeline-develop/custom/extra/payfort/payfortcore/src/com/extra/payfort/jalo/PayfortTransaction.java || true
+            sleep 4
+            ant customize clean all production sapCloudPackage
+            sleep 18
+    		'''
+    
+    		  }
+			  }
+    	    }
+    
+    
+    	 stage("Completing packages")
+    	 	{
+    		agent { node { label 'master' } }
+    	    
+    		 steps {
+    		 sh label: '', script: '''      
+    		 cp -rf /tmp/code.tar ~/workspace/hybris-package-pipeline-develop/temp/hybris/hybrisServer/code.tar
+        		sleep 1
+           		echo ${version} > ~/workspace/hybris-package-pipeline-develop/temp/hybris/hybrisServer/version
+           		cat /tmp/versions > ~/workspace/hybris-package-pipeline-develop/temp/hybris/hybrisServer/sysname
+    		'''
+    		}
+    		}
+
+    	 stage("Sending Notification")
+    	 	{
+    		agent { node { label 'master' } }
+    	    
+    		 steps {
+    		 sh label: '', script: '''      
+			   sh ~/email.sh $(cat /tmp/version )
+    		'''
+    		}
+    		}
+    
+       } //end of stages
+    
+	  post {
+
+	   failure {
+	   
+	    node('master')
+			{
+	    sh 'sh ~/femail.sh $(cat /tmp/version) '
+
+		}
+		}
+	  }
+    
+    } // completing pipeline
+
+
+    
+    

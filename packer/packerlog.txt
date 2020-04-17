@@ -1,0 +1,289 @@
+2020/04/16 00:26:01 [INFO] Packer version: 1.5.5 [go1.13.7 linux amd64]
+2020/04/16 00:26:01 Checking 'PACKER_CONFIG' for a config file path
+2020/04/16 00:26:01 'PACKER_CONFIG' not set; checking the default config file path
+2020/04/16 00:26:01 Attempting to open config file: /root/.packerconfig
+2020/04/16 00:26:01 [WARN] Config file doesn't exist: /root/.packerconfig
+2020/04/16 00:26:01 Setting cache directory: /root/seera-testing/packer/packer_cache
+2020/04/16 00:26:01 Creating plugin client for path: /usr/sbin/packer
+2020/04/16 00:26:01 Starting plugin: /usr/sbin/packer []string{"/usr/sbin/packer", "plugin", "packer-builder-amazon-ebs"}
+2020/04/16 00:26:01 Waiting for RPC address for: /usr/sbin/packer
+2020/04/16 00:26:01 Received unix RPC address for /usr/sbin/packer: addr is /tmp/packer-plugin978195130
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: [INFO] Packer version: 1.5.5 [go1.13.7 linux amd64]
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: Checking 'PACKER_CONFIG' for a config file path
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: 'PACKER_CONFIG' not set; checking the default config file path
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: Attempting to open config file: /root/.packerconfig
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: [WARN] Config file doesn't exist: /root/.packerconfig
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: Setting cache directory: /root/seera-testing/packer/packer_cache
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: args: []string{"packer-builder-amazon-ebs"}
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: Plugin address: unix /tmp/packer-plugin978195130
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: Waiting for connection...
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: Serving a plugin connection...
+2020/04/16 00:26:01 Creating plugin client for path: /usr/sbin/packer
+2020/04/16 00:26:01 Starting plugin: /usr/sbin/packer []string{"/usr/sbin/packer", "plugin", "packer-provisioner-shell"}
+2020/04/16 00:26:01 Waiting for RPC address for: /usr/sbin/packer
+2020/04/16 00:26:01 Received unix RPC address for /usr/sbin/packer: addr is /tmp/packer-plugin011055367
+2020/04/16 00:26:01 packer-provisioner-shell plugin: [INFO] Packer version: 1.5.5 [go1.13.7 linux amd64]
+2020/04/16 00:26:01 packer-provisioner-shell plugin: Checking 'PACKER_CONFIG' for a config file path
+2020/04/16 00:26:01 packer-provisioner-shell plugin: 'PACKER_CONFIG' not set; checking the default config file path
+2020/04/16 00:26:01 packer-provisioner-shell plugin: Attempting to open config file: /root/.packerconfig
+2020/04/16 00:26:01 packer-provisioner-shell plugin: [WARN] Config file doesn't exist: /root/.packerconfig
+2020/04/16 00:26:01 packer-provisioner-shell plugin: Setting cache directory: /root/seera-testing/packer/packer_cache
+2020/04/16 00:26:01 packer-provisioner-shell plugin: args: []string{"packer-provisioner-shell"}
+2020/04/16 00:26:01 packer-provisioner-shell plugin: Plugin address: unix /tmp/packer-plugin011055367
+2020/04/16 00:26:01 packer-provisioner-shell plugin: Waiting for connection...
+2020/04/16 00:26:01 packer-provisioner-shell plugin: Serving a plugin connection...
+2020/04/16 00:26:01 ui: [1;32mamazon-ebs: output will be in this color.[0m
+2020/04/16 00:26:01 ui: 
+2020/04/16 00:26:01 Build debug mode: false
+2020/04/16 00:26:01 Force build: false
+2020/04/16 00:26:01 On error: 
+2020/04/16 00:26:01 Preparing build: amazon-ebs
+2020/04/16 00:26:01 Waiting on builds to complete...
+2020/04/16 00:26:01 Starting build run: amazon-ebs
+2020/04/16 00:26:01 Running builder: amazon-ebs
+2020/04/16 00:26:01 [INFO] (telemetry) Starting builder amazon-ebs
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: Found region us-east-1
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: [INFO] AWS Auth provider used: "SharedConfigCredentials: /root/.aws/credentials"
+2020/04/16 00:26:01 packer-builder-amazon-ebs plugin: [INFO] (aws): No AWS timeout and polling overrides have been set. Packer will default to waiter-specific delays and timeouts. If you would like to customize the length of time between retries and max number of retries you may do so by setting the environment variables AWS_POLL_DELAY_SECONDS and AWS_MAX_ATTEMPTS to your desired values.
+2020/04/16 00:26:02 ui: [1;32m==> amazon-ebs: Prevalidating any provided VPC information[0m
+2020/04/16 00:26:02 ui: [1;32m==> amazon-ebs: Prevalidating AMI Name: ami-00000123[0m
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin: Using AMI Filters {
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:   Filters: [{
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:       Name: "name",
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:       Values: ["ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*"]
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:     },{
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:       Name: "root-device-type",
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:       Values: ["ebs"]
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:     },{
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:       Name: "virtualization-type",
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:       Values: ["hvm"]
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:     }],
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin:   Owners: ["099720109477"]
+2020/04/16 00:26:03 packer-builder-amazon-ebs plugin: }
+2020/04/16 00:26:05 ui: [0;32m    amazon-ebs: Found Image ID: ami-039a49e70ea773ffc[0m
+2020/04/16 00:26:05 ui: [1;32m==> amazon-ebs: Creating temporary keypair: packer_5e977be9-6a50-9bbe-d70d-b525d862a6d6[0m
+2020/04/16 00:26:06 ui: [1;32m==> amazon-ebs: Creating temporary security group for this instance: packer_5e977bee-f132-26da-5260-21e509e5beed[0m
+2020/04/16 00:26:07 packer-builder-amazon-ebs plugin: [DEBUG] Waiting for temporary security group: sg-0f5c347729b76530c
+2020/04/16 00:26:08 ui: [1;32m==> amazon-ebs: Authorizing access to port 22 from [0.0.0.0/0] in the temporary security groups...[0m
+2020/04/16 00:26:08 packer-builder-amazon-ebs plugin: [DEBUG] Found security group sg-0f5c347729b76530c
+2020/04/16 00:26:09 ui: [1;32m==> amazon-ebs: Launching a source AWS instance...[0m
+2020/04/16 00:26:09 ui: [1;32m==> amazon-ebs: Adding tags to source instance[0m
+2020/04/16 00:26:09 ui: [0;32m    amazon-ebs: Adding tag: "Name": "Packer Builder"[0m
+2020/04/16 00:26:11 ui: [0;32m    amazon-ebs: Instance ID: i-0051f81b9095b86ae[0m
+2020/04/16 00:26:11 ui: [1;32m==> amazon-ebs: Waiting for instance (i-0051f81b9095b86ae) to become ready...[0m
+2020/04/16 00:26:45 ui: [1;32m==> amazon-ebs: Using ssh communicator to connect: 34.229.50.166[0m
+2020/04/16 00:26:45 packer-builder-amazon-ebs plugin: [INFO] Not using winrm communicator, skipping get password...
+2020/04/16 00:26:45 packer-builder-amazon-ebs plugin: [INFO] Waiting for SSH, up to timeout: 5m0s
+2020/04/16 00:26:45 ui: [1;32m==> amazon-ebs: Waiting for SSH to become available...[0m
+2020/04/16 00:26:45 packer-builder-amazon-ebs plugin: Using host value: 34.229.50.166
+2020/04/16 00:26:49 packer-builder-amazon-ebs plugin: [INFO] Attempting SSH connection to 34.229.50.166:22...
+2020/04/16 00:26:49 packer-builder-amazon-ebs plugin: [DEBUG] reconnecting to TCP connection for SSH
+2020/04/16 00:26:49 packer-builder-amazon-ebs plugin: [DEBUG] handshaking with SSH
+2020/04/16 00:26:50 ui: [1;32m==> amazon-ebs: Connected to SSH![0m
+2020/04/16 00:26:50 packer-builder-amazon-ebs plugin: [DEBUG] handshake complete!
+2020/04/16 00:26:50 packer-builder-amazon-ebs plugin: [INFO] no local agent socket, will not connect agent
+2020/04/16 00:26:50 packer-builder-amazon-ebs plugin: Running the provision hook
+2020/04/16 00:26:50 [INFO] (telemetry) Starting provisioner shell
+2020/04/16 00:26:50 ui: [1;32m==> amazon-ebs: Provisioning with shell script: sam.sh[0m
+2020/04/16 00:26:50 packer-provisioner-shell plugin: Opening sam.sh for reading
+2020/04/16 00:26:50 packer-provisioner-shell plugin: [INFO] 78 bytes written for 'uploadData'
+2020/04/16 00:26:50 [INFO] 78 bytes written for 'uploadData'
+2020/04/16 00:26:50 packer-builder-amazon-ebs plugin: [DEBUG] Opening new ssh session
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] Starting remote scp process:  scp -vt /tmp
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] Copying input data into temporary file so we can read the length
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] scp: Uploading script_4420.sh: perms=C0644 size=78
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] Waiting for SSH session to complete.
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] scp stderr (length 30): Sink: C0644 78 script_4420.sh
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] Opening new ssh session
+2020/04/16 00:26:51 packer-builder-amazon-ebs plugin: [DEBUG] starting remote command: chmod 0755 /tmp/script_4420.sh
+2020/04/16 00:26:52 packer-builder-amazon-ebs plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:26:52 [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:26:52 [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:26:52 packer-provisioner-shell plugin: [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:26:52 packer-builder-amazon-ebs plugin: [DEBUG] Opening new ssh session
+2020/04/16 00:26:52 packer-builder-amazon-ebs plugin: [DEBUG] starting remote command: chmod +x /tmp/script_4420.sh; PACKER_BUILDER_TYPE='amazon-ebs' PACKER_BUILD_NAME='amazon-ebs'  /tmp/script_4420.sh
+2020/04/16 00:26:52 ui: [0;32m    amazon-ebs: Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [109 kB][0m
+2020/04/16 00:26:52 ui: [0;32m    amazon-ebs: Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease[0m
+2020/04/16 00:26:52 ui: [0;32m    amazon-ebs: Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [109 kB][0m
+2020/04/16 00:26:52 ui: [0;32m    amazon-ebs: Get:4 http://archive.ubuntu.com/ubuntu xenial-backports InRelease [107 kB][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:5 http://archive.ubuntu.com/ubuntu xenial/universe amd64 Packages [7532 kB][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:6 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [850 kB][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:7 http://security.ubuntu.com/ubuntu xenial-security/main Translation-en [321 kB][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:8 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [489 kB][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:9 http://security.ubuntu.com/ubuntu xenial-security/universe Translation-en [200 kB][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:10 http://security.ubuntu.com/ubuntu xenial-security/multiverse amd64 Packages [5728 B][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:11 http://security.ubuntu.com/ubuntu xenial-security/multiverse Translation-en [2708 B][0m
+2020/04/16 00:26:53 ui: [0;32m    amazon-ebs: Get:12 http://archive.ubuntu.com/ubuntu xenial/universe Translation-en [4354 kB][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:13 http://archive.ubuntu.com/ubuntu xenial/multiverse amd64 Packages [144 kB][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:14 http://archive.ubuntu.com/ubuntu xenial/multiverse Translation-en [106 kB][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:15 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [1129 kB][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:16 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [796 kB][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:17 http://archive.ubuntu.com/ubuntu xenial-updates/universe Translation-en [333 kB][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:18 http://archive.ubuntu.com/ubuntu xenial-updates/multiverse amd64 Packages [16.8 kB][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:19 http://archive.ubuntu.com/ubuntu xenial-updates/multiverse Translation-en [8468 B][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:20 http://archive.ubuntu.com/ubuntu xenial-backports/main amd64 Packages [7280 B][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:21 http://archive.ubuntu.com/ubuntu xenial-backports/main Translation-en [4456 B][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:22 http://archive.ubuntu.com/ubuntu xenial-backports/universe amd64 Packages [8064 B][0m
+2020/04/16 00:26:54 ui: [0;32m    amazon-ebs: Get:23 http://archive.ubuntu.com/ubuntu xenial-backports/universe Translation-en [4328 B][0m
+2020/04/16 00:27:03 ui: [0;32m    amazon-ebs: Fetched 16.6 MB in 6s (2385 kB/s)[0m
+2020/04/16 00:27:05 ui: [0;32m    amazon-ebs: Reading package lists...[0m
+2020/04/16 00:27:05 ui: [0;32m    amazon-ebs: Reading package lists...[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Building dependency tree...[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Reading state information...[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: The following additional packages will be installed:[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs:   apache2-bin apache2-data apache2-utils libapr1 libaprutil1[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs:   libaprutil1-dbd-sqlite3 libaprutil1-ldap liblua5.1-0 ssl-cert[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Suggested packages:[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs:   www-browser apache2-doc apache2-suexec-pristine | apache2-suexec-custom[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs:   openssl-blacklist[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: The following NEW packages will be installed:[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs:   apache2 apache2-bin apache2-data apache2-utils libapr1 libaprutil1[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs:   libaprutil1-dbd-sqlite3 libaprutil1-ldap liblua5.1-0 ssl-cert[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: 0 upgraded, 10 newly installed, 0 to remove and 2 not upgraded.[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Need to get 1562 kB of archives.[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: After this operation, 6438 kB of additional disk space will be used.[0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 libapr1 amd64 1.5.2-3 [86.0 kB][0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Get:2 http://archive.ubuntu.com/ubuntu xenial/main amd64 libaprutil1 amd64 1.5.4-1build1 [77.1 kB][0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Get:3 http://archive.ubuntu.com/ubuntu xenial/main amd64 libaprutil1-dbd-sqlite3 amd64 1.5.4-1build1 [10.6 kB][0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Get:4 http://archive.ubuntu.com/ubuntu xenial/main amd64 libaprutil1-ldap amd64 1.5.4-1build1 [8720 B][0m
+2020/04/16 00:27:06 ui: [0;32m    amazon-ebs: Get:5 http://archive.ubuntu.com/ubuntu xenial/main amd64 liblua5.1-0 amd64 5.1.5-8ubuntu1 [102 kB][0m
+2020/04/16 00:27:07 ui: [0;32m    amazon-ebs: Get:6 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 apache2-bin amd64 2.4.18-2ubuntu3.14 [930 kB][0m
+2020/04/16 00:27:07 ui: [0;32m    amazon-ebs: Get:7 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 apache2-utils amd64 2.4.18-2ubuntu3.14 [82.1 kB][0m
+2020/04/16 00:27:07 ui: [0;32m    amazon-ebs: Get:8 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 apache2-data all 2.4.18-2ubuntu3.14 [162 kB][0m
+2020/04/16 00:27:07 ui: [0;32m    amazon-ebs: Get:9 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 apache2 amd64 2.4.18-2ubuntu3.14 [86.5 kB][0m
+2020/04/16 00:27:07 ui: [0;32m    amazon-ebs: Get:10 http://archive.ubuntu.com/ubuntu xenial/main amd64 ssl-cert all 1.0.37 [16.9 kB][0m
+2020/04/16 00:27:07 ui error: [1;31m==> amazon-ebs: debconf: unable to initialize frontend: Dialog[0m
+2020/04/16 00:27:07 ui error: [1;31m==> amazon-ebs: debconf: (Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.)[0m
+2020/04/16 00:27:07 ui error: [1;31m==> amazon-ebs: debconf: falling back to frontend: Readline[0m
+2020/04/16 00:27:07 ui error: [1;31m==> amazon-ebs: debconf: unable to initialize frontend: Readline[0m
+2020/04/16 00:27:07 ui error: [1;31m==> amazon-ebs: debconf: (This frontend requires a controlling tty.)[0m
+2020/04/16 00:27:07 ui error: [1;31m==> amazon-ebs: debconf: falling back to frontend: Teletype[0m
+2020/04/16 00:27:07 ui error: [1;31m==> amazon-ebs: dpkg-preconfigure: unable to re-open stdin:[0m
+2020/04/16 00:27:07 ui: [0;32m    amazon-ebs: Fetched 1562 kB in 0s (2015 kB/s)[0m
+2020/04/16 00:27:07 ui: [0;32m    amazon-ebs: Selecting previously unselected package libapr1:amd64.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: (Reading database ... 51431 files and directories currently installed.)[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../libapr1_1.5.2-3_amd64.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking libapr1:amd64 (1.5.2-3) ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Selecting previously unselected package libaprutil1:amd64.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../libaprutil1_1.5.4-1build1_amd64.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking libaprutil1:amd64 (1.5.4-1build1) ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Selecting previously unselected package libaprutil1-dbd-sqlite3:amd64.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../libaprutil1-dbd-sqlite3_1.5.4-1build1_amd64.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking libaprutil1-dbd-sqlite3:amd64 (1.5.4-1build1) ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Selecting previously unselected package libaprutil1-ldap:amd64.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../libaprutil1-ldap_1.5.4-1build1_amd64.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking libaprutil1-ldap:amd64 (1.5.4-1build1) ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Selecting previously unselected package liblua5.1-0:amd64.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../liblua5.1-0_5.1.5-8ubuntu1_amd64.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking liblua5.1-0:amd64 (5.1.5-8ubuntu1) ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Selecting previously unselected package apache2-bin.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../apache2-bin_2.4.18-2ubuntu3.14_amd64.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking apache2-bin (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Selecting previously unselected package apache2-utils.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../apache2-utils_2.4.18-2ubuntu3.14_amd64.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking apache2-utils (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Selecting previously unselected package apache2-data.[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Preparing to unpack .../apache2-data_2.4.18-2ubuntu3.14_all.deb ...[0m
+2020/04/16 00:27:08 ui: [0;32m    amazon-ebs: Unpacking apache2-data (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Selecting previously unselected package apache2.[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Preparing to unpack .../apache2_2.4.18-2ubuntu3.14_amd64.deb ...[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Unpacking apache2 (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Selecting previously unselected package ssl-cert.[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Preparing to unpack .../ssl-cert_1.0.37_all.deb ...[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Unpacking ssl-cert (1.0.37) ...[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Processing triggers for libc-bin (2.23-0ubuntu11) ...[0m
+2020/04/16 00:27:09 ui: [0;32m    amazon-ebs: Processing triggers for man-db (2.7.5-1) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Processing triggers for ufw (0.35-0ubuntu2) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Processing triggers for ureadahead (0.100.0-19.1) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Processing triggers for systemd (229-4ubuntu21.27) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up libapr1:amd64 (1.5.2-3) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up libaprutil1:amd64 (1.5.4-1build1) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up libaprutil1-dbd-sqlite3:amd64 (1.5.4-1build1) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up libaprutil1-ldap:amd64 (1.5.4-1build1) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up liblua5.1-0:amd64 (5.1.5-8ubuntu1) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up apache2-bin (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up apache2-utils (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up apache2-data (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:10 ui: [0;32m    amazon-ebs: Setting up apache2 (2.4.18-2ubuntu3.14) ...[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module mpm_event.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module authz_core.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module authz_host.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module authn_core.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module auth_basic.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module access_compat.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module authn_file.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module authz_user.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module alias.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module dir.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module autoindex.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module env.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module mime.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module negotiation.[0m
+2020/04/16 00:27:11 ui: [0;32m    amazon-ebs: Enabling module setenvif.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling module filter.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling module deflate.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling module status.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling conf charset.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling conf localized-error-pages.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling conf other-vhosts-access-log.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling conf security.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling conf serve-cgi-bin.[0m
+2020/04/16 00:27:12 ui: [0;32m    amazon-ebs: Enabling site 000-default.[0m
+2020/04/16 00:27:13 ui: [0;32m    amazon-ebs: Setting up ssl-cert (1.0.37) ...[0m
+2020/04/16 00:27:13 ui: [0;32m    amazon-ebs: debconf: unable to initialize frontend: Dialog[0m
+2020/04/16 00:27:13 ui: [0;32m    amazon-ebs: debconf: (Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.)[0m
+2020/04/16 00:27:13 ui: [0;32m    amazon-ebs: debconf: falling back to frontend: Readline[0m
+2020/04/16 00:27:14 ui: [0;32m    amazon-ebs: Processing triggers for libc-bin (2.23-0ubuntu11) ...[0m
+2020/04/16 00:27:14 ui: [0;32m    amazon-ebs: Processing triggers for ureadahead (0.100.0-19.1) ...[0m
+2020/04/16 00:27:14 ui: [0;32m    amazon-ebs: Processing triggers for systemd (229-4ubuntu21.27) ...[0m
+2020/04/16 00:27:14 ui: [0;32m    amazon-ebs: Processing triggers for ufw (0.35-0ubuntu2) ...[0m
+2020/04/16 00:27:16 [INFO] 7956 bytes written for 'stdout'
+2020/04/16 00:27:16 [INFO] 401 bytes written for 'stderr'
+2020/04/16 00:27:16 [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:27:16 [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:27:16 packer-builder-amazon-ebs plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:27:16 packer-provisioner-shell plugin: [INFO] 7956 bytes written for 'stdout'
+2020/04/16 00:27:16 packer-provisioner-shell plugin: [INFO] 401 bytes written for 'stderr'
+2020/04/16 00:27:16 packer-provisioner-shell plugin: [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:27:16 packer-builder-amazon-ebs plugin: [DEBUG] Opening new ssh session
+2020/04/16 00:27:16 packer-builder-amazon-ebs plugin: [DEBUG] starting remote command: rm -f /tmp/script_4420.sh
+2020/04/16 00:27:16 [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:27:16 [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:27:16 packer-builder-amazon-ebs plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:27:16 packer-provisioner-shell plugin: [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:27:16 packer-builder-amazon-ebs plugin: [DEBUG] Opening new ssh session
+2020/04/16 00:27:16 packer-builder-amazon-ebs plugin: [DEBUG] starting remote command: rm -f
+2020/04/16 00:27:16 [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:27:16 [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:27:16 packer-builder-amazon-ebs plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/04/16 00:27:16 packer-provisioner-shell plugin: [INFO] RPC client: Communicator ended with: 0
+2020/04/16 00:27:16 [INFO] (telemetry) ending shell
+2020/04/16 00:27:16 ui: [1;32m==> amazon-ebs: Stopping the source instance...[0m
+2020/04/16 00:27:16 ui: [0;32m    amazon-ebs: Stopping instance[0m
+2020/04/16 00:27:18 ui: [1;32m==> amazon-ebs: Waiting for the instance to stop...[0m
+2020/04/16 00:27:51 ui: [1;32m==> amazon-ebs: Creating AMI ami-00000123 from instance i-0051f81b9095b86ae[0m
+2020/04/16 00:27:52 ui: [0;32m    amazon-ebs: AMI: ami-0da4a3d5f78f77e39[0m
+2020/04/16 00:27:52 ui: [1;32m==> amazon-ebs: Waiting for AMI to become ready...[0m
+2020/04/16 00:29:14 ui: [1;32m==> amazon-ebs: Terminating the source AWS instance...[0m
+2020/04/16 00:29:32 ui: [1;32m==> amazon-ebs: Cleaning up any extra volumes...[0m
+2020/04/16 00:29:33 ui: [1;32m==> amazon-ebs: No volumes to clean up, skipping[0m
+2020/04/16 00:29:33 ui: [1;32m==> amazon-ebs: Deleting temporary security group...[0m
+2020/04/16 00:29:34 ui: [1;32m==> amazon-ebs: Deleting temporary keypair...[0m
+2020/04/16 00:29:35 [INFO] (telemetry) ending amazon-ebs
+2020/04/16 00:29:35 ui: [1;32mBuild 'amazon-ebs' finished.[0m
+2020/04/16 00:29:35 ui: 
+==> Builds finished. The artifacts of successful builds are:
+2020/04/16 00:29:35 machine readable: amazon-ebs,artifact-count []string{"1"}
+2020/04/16 00:29:35 machine readable: amazon-ebs,artifact []string{"0", "builder-id", "mitchellh.amazonebs"}
+2020/04/16 00:29:35 machine readable: amazon-ebs,artifact []string{"0", "id", "us-east-1:ami-0da4a3d5f78f77e39"}
+2020/04/16 00:29:35 machine readable: amazon-ebs,artifact []string{"0", "string", "AMIs were created:\nus-east-1: ami-0da4a3d5f78f77e39\n"}
+2020/04/16 00:29:35 machine readable: amazon-ebs,artifact []string{"0", "files-count", "0"}
+2020/04/16 00:29:35 machine readable: amazon-ebs,artifact []string{"0", "end"}
+2020/04/16 00:29:35 ui: --> amazon-ebs: AMIs were created:
+us-east-1: ami-0da4a3d5f78f77e39
+2020/04/16 00:29:35 [INFO] (telemetry) Finalizing.
+2020/04/16 00:29:36 waiting for all plugin processes to complete...
+2020/04/16 00:29:36 /usr/sbin/packer: plugin process exited
+2020/04/16 00:29:36 /usr/sbin/packer: plugin process exited

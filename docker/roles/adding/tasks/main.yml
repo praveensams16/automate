@@ -1,0 +1,10 @@
+---
+# tasks file for adding
+- name: adding numbers
+  first:
+    location: '/tmp/ifconfig'
+  register: result
+
+- name: debug
+  debug:
+    msg: "{{ result}}" 

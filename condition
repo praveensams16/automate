@@ -1,0 +1,37 @@
+pipeline {
+	agent none
+
+	stages {
+		stage("Error on systems")
+			{
+
+			parallel	{
+		stage("Running first job")
+				{
+				agent { node { label 'master' } }
+				steps	{
+				sh '''
+				echo hi
+				sleep 100
+				'''
+				}
+			}
+		stage("Running second job")
+			{
+			agent { node { label 'master' } }
+			steps	{
+				sh '''
+				echo "bye"
+				sleep 100
+				'''
+				}
+			}
+		}
+		}
+
+		}
+	
+	}
+
+
+

@@ -1,0 +1,101 @@
+---
+# tasks file for deployment
+#
+- name: Creating java folder
+  file: 
+    path: /usr/local/java
+    state: directory
+  tags: install
+
+- name: Checking stats path
+  shell: |
+       ls /usr/local/java/
+  register: files
+  tags: 
+    - "install"
+    - "test"
+
+- name: unarchive
+  unarchive:
+    src: jdk-8u241-linux-x64.tar.gz
+    dest: /usr/local/src 
+  when: ( 'bin'  not in files.stdout ) 
+  tags: 
+    - "install"
+
+- name: Copying the files from local
+  shell: |
+      mv -v /usr/local/src/jdk*/* /usr/local/java/
+  tags: install
+  when: ( 'bin'  not in files.stdout ) 
+  
+
+- name: Finding variable content
+  shell: |
+        cat /etc/profile
+  tags: 
+    - "install"
+    - "java"
+  register: java_var
+
+- name: Making environment variable 
+  blockinfile:
+    path: "{{ item }}"
+    block: |
+            export PATH=/usr/local/java/bin:$PATH
+    marker: "## Added By Ansible ##"
+  with_items:
+    - "~/.bashrc"
+    - "~/.bash_profile"
+    - "/etc/profile"
+  when: ( '/usr/local/java' not in java_var.stdout )
+  tags: 
+    - "install"
+    - "java"
+
+
+- name: copy java modules
+  copy:
+    src: /root/tomcat-image/spring-boot-0.0.1-SNAPSHOT.jar
+    dest: /mnt
+  tags:
+    - "install"
+
+- name: Running a sevrice in background
+  template:
+    src: "{{item.key }}"
+    dest: "{{ item.value }}"
+    mode: 777
+  loop: "{{ lookup('dict', serv) }}"
+  tags:
+    - "install"
+
+- name: stopping the service
+  shell: |
+         /usr/local/bin/run.sh stop
+  when: ( 'yes' in runme )
+  ignore_errors: yes
+  tags:
+    - "stop"
+    - "install"
+
+- name: checking the service status 
+  shell: | 
+        netstat -ntpl | grep 8080 | grep -v grep
+  register: portstat
+  tags:
+    - "install"
+    - "onetime"
+    - "start"
+  ignore_errors: yes
+
+- name: service start
+  shell: /usr/local/bin/run.sh start 
+  when: ( '8080' not in  portstat.stdout )
+  tags:
+    - "install"
+    - "onetime"
+    - "start"
+  become: true
+  become_user: 'root'
+    

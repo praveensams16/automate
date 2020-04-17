@@ -1,0 +1,7 @@
+spring.datasource.url=jdbc:sqlserver://10.65.29.210;databaseName=ABSAPEMPTY
+spring.datasource.username=TAS.test
+spring.datasource.password=TAS.1234
+spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+spring.jpa.show-sql=true
+spring.jpa.hibernate.dialect=org.hibernate.dialect.SQLServer2012Dialect
+spring.jpa.hibernate.ddl-auto=validate

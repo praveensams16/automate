@@ -1,0 +1,13 @@
+---
+# tasks file for apache
+
+- name: contentss
+  content:
+    source: |
+          sam in home
+          did you got it
+  register: result
+
+- name: debugs
+  debug:
+    msg: "{{ result }}"

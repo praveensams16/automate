@@ -1,0 +1,35 @@
+pipeline {
+	agent none
+	
+	stages {
+		stage("Git url") {
+		agent { node { label 'ansible' } }
+		environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh '''
+                cd chart/build/apache
+                sudo docker build -t praveensam/apache:v61 .
+                sudo docker push praveensam/apache:v61
+				'''
+				}
+			}
+	
+		
+
+		stage('Generating package out of maven') {
+			agent { node { label 'ansible' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh ''' 
+            cd chart
+            helm upgrade "apache" ./apache --set image.tag=v61
+			'''
+			}
+			}
+            }
+            }
+

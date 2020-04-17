@@ -1,0 +1,17 @@
+builds:
+  - main: ./cmd/helms3
+    binary: ./bin/helms3
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+
+archives:
+  - id: tar
+    format: tar.gz
+    files:
+      - LICENSE
+      - plugin.yaml

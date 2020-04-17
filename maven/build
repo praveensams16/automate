@@ -1,0 +1,70 @@
+#!/usr/bin/env groovy 
+
+pipeline {
+	agent none
+	environment {
+	 name = 'Just to print'
+	 	}
+
+	parameters {
+		 choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+		 }
+
+
+	stages {
+		stage("Checking out newcode") {
+		agent { node { label 'master' } }
+		environment {
+	 		name = 'Just to print'
+	 		}
+			when {
+				expression { params.var =~ 'a|A' }
+				}
+			steps {
+			git credentialsId: 'ac6e5816-35a9-4d2d-9685-6bf68d5f8f16', url: 'https://github.com/praveensams/mavencode.git'
+				}
+			}
+	
+		stage('SHow maven') {
+			agent { node { label 'master' } }
+			environment {
+	 		name = 'Just to print'
+	 		}
+			steps {
+			sh '''
+			git checkout master
+			sh sam.sh
+			'''
+			}
+			}
+
+		stage('PUshing the code to nexus') {
+			agent { node { label 'master' } }
+			environment {
+	 		name = 'Just to print'
+	 		}
+			steps {
+			sh '''
+			find . -name "*.jar" > /tmp/sam
+			curl -u admin:admin123 --upload $(cat /tmp/sam) http://192.168.33.110:8081/repository/maven/$(cat /tmp/sam)
+			'''
+			}
+			}
+
+
+		stage('deploying to web server') {
+			agent { node { label 'ansible	' } }
+			environment {
+	 		name = 'Just to print'
+	 		}
+			steps {
+			sh '''
+			cd /playbook
+			ansible-playbook -i inventory wrap.yml -e 'host_name=kubnode playbook=deploy'
+			'''
+
+			}
+			}
+		}
+	}
+

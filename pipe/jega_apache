@@ -1,0 +1,35 @@
+pipeline {
+        agent none
+
+        parameters {
+                                string(defaultValue: "latest", description: 'Enter the tag name', name: 'tags')
+                }
+
+	stages {
+
+	stage("cloning the repository") {
+
+  	     agent { node { label 'kubnode' } }
+
+	     steps  {
+	
+	     git credentialsId: '7624892a-b6c6-4813-a21d-481f77326219', url: 'https://github.com/praveensams/morning-apache.git'
+            } 
+	     }
+
+	stage("moving the files") {
+
+  		agent { node { label 'kubnode' } }
+	        steps {
+
+		sh '''
+		  sudo cp -rvf index.html /var/www/html/
+		  '''
+		  }
+		  }
+		 }
+
+		 }
+
+
+

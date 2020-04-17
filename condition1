@@ -1,0 +1,41 @@
+def runs(s)
+	{
+	return s + 10
+	}
+
+pipeline {
+	agent none
+
+	stages {
+
+		stage("Error on systems")
+				{
+				agent { node { label 'master' } }
+
+				steps	{
+				script {
+				try {
+				sh '''
+				echo hi
+				slep 100
+				'''
+				}
+				catch ( Exception e )
+					{
+					for ( int i = 0 ; i < 4 ; i++ )
+						{
+						println(i)
+						}
+
+					env.k=runs(4)
+					sh '''
+					echo bye ${k}
+					'''
+					}
+					}
+
+				}
+				}
+
+				}
+				}

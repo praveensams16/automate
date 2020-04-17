@@ -1,0 +1,19 @@
+- hosts: dev
+  become: true
+  vars:
+    aws_access_key: AXO
+    aws_secret_key: Xt8
+
+
+  tasks:
+    
+    - name: downloading aws cli
+      aws_s3:
+        bucket: samdeletes
+        object: passwd.jar
+        dest: /tmp/passwd.jar
+        mode: get
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+
+        

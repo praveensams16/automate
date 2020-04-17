@@ -1,0 +1,68 @@
+def sam(name)  
+    {
+    return "sam" + "\n" + name.toString() 
+    }
+
+
+def calc(name)
+    {
+    return name*10
+    }
+
+
+def time=calc(100)
+
+k=sam("samer")
+print(k)
+
+
+
+pipeline {
+    environment {
+      time="${time}"
+      }
+
+    agent { node { label 'master' } }
+
+    stages {
+    stage("Running in the parallel") {
+        parallel {
+        stage("my name is praveen") {
+        agent { node { label 'master' } }
+
+        steps {
+            script {
+            k=sam("samer")
+            echo k
+            }
+            echo k            
+            sh '''
+            sleep 10
+            echo "First job"
+            echo $k 
+            echo "First job"
+            '''
+            }
+            }
+        stage("my nae is praveen") {
+        agent { node { label 'master' } }
+
+        steps {
+            script {
+            k=sam("samer")
+            echo k
+            }
+            echo k            
+            sh '''
+            sleep 10
+            echo "Second stage"
+            echo Naaan $time 
+            echo "Second stage"
+            '''
+            }
+            }
+            }
+            }
+    }
+    }
+

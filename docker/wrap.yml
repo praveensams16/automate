@@ -1,0 +1,22 @@
+- hosts: dev1
+  become: true
+
+
+  pre_tasks:
+  
+    - name: Reding the DNS entry
+      command: cat /etc/resolv.conf
+      register: result
+    
+    - name: Adding google DNS
+      blockinfile:
+        path: /etc/resolv.conf
+        block: |
+          nameserver 8.8.8.8
+        marker: "## Added through ansible ##"
+      when: ( '8.8.8.8' not in result.stdout )
+        
+
+  roles:
+    - "{{rolename}}"
+    - "nginx"

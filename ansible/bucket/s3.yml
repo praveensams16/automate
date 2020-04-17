@@ -1,0 +1,33 @@
+- hosts: dev1 
+  become: true
+  vars:
+    aws_access_key: AKIARRJ7UK2BUYLBJZ42
+    aws_secret_key: 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
+
+  tasks:
+    - name: Installing boto3
+      easy_install: 
+        name: boto3
+        state: latest 
+      tags: boto3
+
+    - name: installing aws cli
+      aws_s3:
+        bucket: seerauploads
+        object: /etc/passwd
+        src: /tmp/sam
+        mode: put
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      delegate_to: "localhost"
+
+
+    
+    - name: downloading aws cli
+      aws_s3:
+        bucket: seerauploads
+        object: /etc/passwd
+        dest: /tmp/sam1
+        mode: get
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"

@@ -1,0 +1,25 @@
+pipeline {
+	agent none
+	
+	parameters {
+      string(defaultValue: "false", description: 'What environment?', name: 'var')
+		}
+
+   stages {
+
+   stage('run-parallel-branches') {
+  steps {
+    parallel(
+      a: {
+	   build job: 'test'
+        echo "This is branch a"
+      },
+      b: {
+	   build job: 'test'
+        echo "This is branch b"
+      }
+    )
+  }
+}
+}
+}

@@ -1,0 +1,45 @@
+---
+# tasks file for process
+- name: Creating the dump folder
+  file:
+    path: /mnt/dump
+    state: directory
+  
+- name: Finding ip address
+  copy:
+    src: dump.py
+    dest: /mnt/
+
+- name: running dump script
+  shell: |
+        python /mnt/dump.py 8080
+        chmod 777 /mnt/dump/*
+
+- name: fetching file
+  shell: |
+         cd /logs/logs/dump
+         sshpass -p "{{password}}" sudo rsync -avz --progress -e "ssh -p 9922 -o StrictHostKeyChecking=no " tasadmin@10.65.30.34:/mnt/dump/* . 
+  delegate_to: localhost
+
+
+- name: Clearing old logs in jenkins machine
+  shell: |
+            cd /logs/logs/dump
+            ls -tr | tail -n3 >  /tmp/logs
+            ls | while read a; do grep $a /tmp/logs || rm -rf $a; done
+  delegate_to: localhost
+        
+
+- name: Clearing old logs in application machine
+  shell: |
+           cd /mnt/dump/
+           rm -rf *
+           pwd
+           hostname
+           ls
+  register: result
+
+
+- name: debug logs
+  debug:
+    msg: "{{ result.stdout }}"

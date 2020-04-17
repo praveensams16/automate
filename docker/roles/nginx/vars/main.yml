@@ -1,0 +1,6 @@
+---
+# vars file for nginx
+ubunt:
+  "ubuntu.nginx.conf.j2": "/etc/nginx/nginx.conf"
+  "ubuntu.snakeoil.conf.j2": "/etc/nginx/snippets/snakeoil.conf"
+  "ubuntu.tas.conf.j2": "/etc/nginx/sites-available/tas.conf"

@@ -1,0 +1,26 @@
+---
+# tasks file for tas-postman
+
+- name: Finding ip address
+  set_fact:
+    address: "{{ansible_default_ipv4['address']}}"
+
+- name: Running templates
+  template:
+    src: "seera-tas.json"
+    dest: "/mnt/seera-tas-{{inventory_hostname}}.json"
+  delegate_to: localhost
+
+- name: Running postman
+  command: "newman run /mnt/seera-tas-{{inventory_hostname}}.json"
+  delegate_to: localhost
+  register: result
+
+
+- name: Showing the results
+  debug:
+    msg: "{{ result.stdout }}"
+        
+- fail:
+    msg: Postman call failed
+  when: ( 'failed' in result.stdout )

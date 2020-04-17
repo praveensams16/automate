@@ -1,0 +1,64 @@
+- name: Updating apt repo
+  apt:
+    update_cache: yes
+
+- name: Finding ip address
+  interface:
+    name: "ens3"
+  register: ipadd
+  tags: ports8080
+
+- name: Setting up ipaddress
+  set_fact:
+    ipaddr="{{ipadd['msg']}}"
+  tags: ports8080
+
+- name: installing Nginx
+  package:
+    name: ["nginx","nginx-common","vim","wget","tmux"]
+    state: "latest"
+
+- name: creating  directory 
+  file:
+    path: /var/certificates
+    state: directory
+
+- name: Copying certificate to directory location 
+  copy:
+    src: "{{item}}"
+    dest: "/var/certificates/{{item}}"
+  loop:
+    - "nginx.key"
+    - "nginx.crt"
+  notify: "restart"
+
+- name: Copying nginx configuration file
+  template:
+    src: "{{ item.key }}"
+    dest: "{{ item.value }}"
+  loop: "{{ lookup('dict', ubunt) }}"
+  notify: "restart"
+ 
+- name: restarting immdiately
+  meta: flush_handlers
+
+- name: starting service
+  service:
+    name: "nginx"
+    state: "started"
+
+- name: service pause
+  pause:
+    seconds: 20
+
+- name: Finding the post is listening 
+  telnets:
+    ipaddress: "{{ipaddr}}"
+    port: 443 
+  register: listens
+  ignore_errors: yes
+
+- name: debugging
+  debug:
+    msg: "{{listens}}"
+

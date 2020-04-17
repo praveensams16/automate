@@ -1,0 +1,46 @@
+pipeline {
+	agent none
+	
+	parameters {
+	    choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+		}
+
+   stages {
+      stage("downloading code") {
+	      agent { node { label 'master' } } 
+		  when {
+
+		      expression { params.var =~ 'a' } 
+			  }
+
+		  steps {
+		       git credentialsId: '1097c8c8-92d7-4935-af21-14d05d97ba6a', url: 'https://github.com/praveensams/mavencode.git'
+				
+				}
+			 }
+  
+       stage(" Maven build") {
+	      agent { node { label 'master' } }
+		  steps {
+            sh ''' 
+	                hostname
+			ls -l /etc/profile.d
+			git checkout master
+			sh sam.sh
+			'''
+			}
+			}
+
+		stage("Push code") {
+		  agent { node { label 'master' } } 
+		  steps {
+		   sh '''
+		    find . -name '*.jar'  > /tmp/sam
+			curl -v -u admin:admin123 --upload-file $(cat /tmp/sam) http://192.168.33.110:8081/repository/maven/$( basename `cat /tmp/sam`)
+              '''
+	    }  
+		}
+
+
+		}
+	}

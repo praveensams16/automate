@@ -1,0 +1,8 @@
+- name: Calling ubuntu 
+  import_tasks: ubuntu.yml  
+  when: ( ansible_os_family == "Debian" )
+
+
+- name: Calling RedHat
+  import_tasks: redhat.yml  
+  when: ( ansible_os_family == "RedHat" )

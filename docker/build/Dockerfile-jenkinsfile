@@ -1,0 +1,8 @@
+FROM jenkinsxio/jenkinsx
+
+USER root
+
+COPY resolv.conf /etc/
+
+USER jenkins
+

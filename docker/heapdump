@@ -1,0 +1,29 @@
+pipeline {
+  agent none
+
+  stages {
+
+          stage("Running Ansible exec") {
+             agent { node { label 'master' } }
+                  environment {
+  ANSIBLE_CONFIG='../config/ansible.cfg'
+                          }
+             steps {
+                  sh '''
+                  cd docker
+                  ansible-playbook test.yml -e "playbooks=process"
+                  '''
+                  }
+                  }
+
+  stage("http://10.65.30.33/logs/dump/") {
+      agent none
+      steps {
+          echo 'http://10.65.30.33/logs/dump/'
+          }
+          }
+ }
+
+}
+
+

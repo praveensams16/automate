@@ -1,0 +1,33 @@
+---
+# tasks file for finds
+- name: Finding the process
+  finds:
+    port: 8080
+  register: result
+
+
+- name: Printing the process id
+  shell: |
+       echo "Date:  `date `" | tee  /tmp/mov 
+       python -c 'print("#"*135)' | tee -a /tmp/mov  
+       echo "Heap details" | tee -a /tmp/mov 
+       python -c 'print("#"*135)'  | tee -a /tmp/mov 
+       jmap -heap  "{{ result['msg']}}"  | tee -a /tmp/mov
+       python -c 'print("#"*135)'  | tee -a /tmp/mov 
+       echo "jstack details" | tee -a /tmp/mov 
+       python -c 'print("#"*135)' | tee -a /tmp/mov 
+       jstack  "{{ result['msg']}}"  | tee -a /tmp/mov
+       chmod -R 777 /tmp/mov
+
+
+- name: Fetching the java file
+  fetch:
+    src: /tmp/mov
+    dest: /logs/logs/
+    mode: 777
+
+
+- name: remove the stack files
+  file:
+    path: /tmp/mov
+    state: absent

@@ -1,0 +1,35 @@
+
+pipeline {
+        agent none
+
+        environment
+			{
+			a=10
+			}
+
+        parameters {
+				string(defaultValue: "latest", description: 'Enter the tag name', name: 'tags')
+                }
+
+stages {
+      stage("downloading code") {
+          agent { node { label 'kubnode' } }
+      environment
+	  	   {
+		   a=20
+		   }
+    steps
+		{
+		docker_build()
+		}
+	}
+	}
+ }
+
+def docker_build()
+	{
+		sh 'ls -l ; pwd;echo ${a}'
+	}
+
+
+

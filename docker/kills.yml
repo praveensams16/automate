@@ -1,0 +1,8 @@
+- hosts: dev1
+  become: true
+
+
+  tasks:
+    - name: Running service
+      killservice:
+        port: 8080

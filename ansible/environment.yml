@@ -1,0 +1,80 @@
+- hosts: localhost
+  become: true
+
+
+  tasks:
+
+    - name: installing java system
+      yum:
+        name: ["java-1.8.0-openjdk"]
+        state: "installed"
+      tags: "java"
+
+    - name: Creating folder when not exists
+      shell: |
+            ls /
+      register: result
+
+    - name: stting fact
+      set_fact:
+        content: "{{lookup('file', '/etc/profile') }}"
+    
+    - name: creating maven environment 
+      block:
+        - name: creating folder
+          file:
+            path: /maven
+            state: directory
+    
+        - name: unarchiving folders
+          unarchive:
+            src: https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+            dest: /maven
+            remote_src: yes
+       
+        - name: Moving folders to /maven
+          shell: |
+                  mv /maven/apache-maven-3.6.3/* /maven/
+      when: ( 'maven' not in result.stdout ) 
+
+
+    - name: Adding line
+      lineinfile:
+        path: "{{ item }}"
+        line: |
+               export PATH=/maven/bin:/java/bin:$PATH
+      with_items:
+        - "/etc/profile"
+        - "/root/.bashrc"
+        - "/root/.bash_profile"
+      when: ( 'maven' not in content )
+
+    - name: Installing jenkins
+      get_url:
+        url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+
+    - name: Import RPM key
+      shell: |
+              rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+    - name: installing jenkins
+      yum:
+        name: "jenkins"
+        state: "installed"
+  
+    - name: restarting jenkins service
+      service: 
+        name: "jenkins"
+        state: "started"
+      register: restart-res
+
+    - name: pause for some time
+      pause:
+        seconds: 30
+
+    - name: restarting jenkins service
+      service:
+        name: "jenkins"
+        state: "restarted"
+      when: ( restart-res.rc != 0 )

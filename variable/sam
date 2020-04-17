@@ -1,0 +1,33 @@
+pipeline { 
+
+	agent any
+	
+	parameters {
+        choice(
+            choices: 'a\nb\nc\nd\nE',
+            description: '',
+            name: 'ENV')
+			string(defaultValue: "false", description: 'What environment?', name: 'UGLIFY_JS')
+			string(defaultValue: "master", description: 'What environment?', name: 'BRANCH')
+
+    }
+  stages {
+	stage("\u2777 build") {
+			steps {
+			echo "********** Triggering Build Job *******************"
+            build job: 'omni_orig', parameters: [[ $class: 'StringParameterValue', name: 'UGLIFY_JS', value: "${UGLIFY_JS}" ] , [ $class: 'StringParameterValue', name: 'ENV' ,value: "${ENV}" ], [ $class: 'StringParameterValue', name: 'BRANCH' ,value: "${BRANCH}" ]]
+    		}
+	}
+	stage("\u2777 Deploy") {
+			steps {
+			echo "********** Triggering Deploy Job *******************"
+            build job: 'omni_deploy', parameters: [[ $class: 'StringParameterValue', name: 'BRANCH', value: "${BRANCH}" ]]
+    		}
+	}
+
+
+	}
+
+
+ }
+

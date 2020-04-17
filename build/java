@@ -1,0 +1,5 @@
+FROM java:8-jdk-alpine
+COPY my-app-1.0-SNAPSHOT.jar /mnt/
+WORKDIR /mnt
+EXPOSE 8080
+CMD ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]

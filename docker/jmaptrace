@@ -1,0 +1,33 @@
+pipeline {
+  agent none
+
+  stages {
+
+          stage("Running Ansible exec") {
+             agent { node { label 'master' } }
+                  environment {
+  ANSIBLE_CONFIG='../config/ansible.cfg'
+                          }
+             steps {
+                  sh '''
+                  cd docker
+                  ansible-playbook test.yml -e "playbooks=finds"
+                  '''
+                  }
+                  }
+
+  stage("http://10.65.30.33/logs/node02/tmp/mov") {
+             agent { node { label 'master' } }
+      steps {
+          echo 'http://10.65.30.33/logs/node02/tmp/mov'
+          sh '''
+          echo  ${JENKINS_URL}/job/${JOB_NAME}/${BUILD_NUMBER}/console | sudo tee /tmp/log.txt
+          python python/emails.py /tmp/log.txt ${BUILD_NUMBER}
+          '''
+          }
+          }
+ }
+
+}
+
+

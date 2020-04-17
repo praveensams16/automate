@@ -1,0 +1,158 @@
+pipeline {
+	agent none
+	parameters {
+			string(defaultValue: "1.0.0.1", description: 'Package version : default 1.0.0.1', name: 'var')
+		 }
+    environment {
+            VERSION="${params.var}"
+                }
+	
+	stages {
+		stage("Git url") {
+		agent { node { label 'ansible' } }
+		environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			git credentialsId: '7d35043b-8daf-417c-b859-50cf9047d0f7', url: 'https://github.com/Seeragroup/TAS.git'
+			sh '''
+				which java
+				which mvn
+				echo "$VERSION"
+				'''
+				}
+			}
+	
+		stage('Testing Code') {
+			agent { node { label 'ansible' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh ''' 
+			git checkout master
+            mvn test
+			'''
+			}
+			}
+		
+		stage('Sonar Scanner') {
+			agent { node { label 'ansible' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh '''
+         pwd
+         find . -name 'sonar.py' -type f
+         cp docker/sonar.py /tmp/sonar.py
+          sleep 2
+         git checkout master
+          sleep 2
+          python /tmp/sonar.py $(pwd) |  sudo tee /tmp/pom.xml
+             sleep 1
+             sudo cp  /tmp/pom.xml . -f
+             sleep 1
+             mvn sonar:sonar
+
+			'''
+			}
+			}
+		
+
+		stage('Generating package out of maven') {
+			agent { node { label 'ansible' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh ''' 
+			git checkout master
+			mvn versions:set -DnewVersion=${VERSION}-SNAPSHOT 
+            mvn package
+            pwd
+            ls -l 
+            find . -name  '*.jar'
+		    sudo cp -rvf ./target/tas-${VERSION}-SNAPSHOT.jar /mnt	
+			'''
+			}
+			}
+
+		stage('Copying the files to s3 bucket') {
+		 agent { node { label 'ansible' } }
+		 environment {
+			AWS_ACCESS_KEY_ID = 'QUtJQQV08K'
+			AWS_SECRET_ACCESS_KEY = 'WDE5cAo='
+			t=runs(200)
+				}
+			steps {
+		  script {
+    				sh ''' 
+						export AWS_ACCESS_KEY_ID=$( echo ${AWS_ACCESS_KEY_ID} | base64 -d )
+						export AWS_SECRET_ACCESS_KEY=$( echo ${AWS_SECRET_ACCESS_KEY} | base64 -d )
+    				aws s3 cp /mnt/tas-${VERSION}-SNAPSHOT.jar s3://seera-tas/share/tas-${VERSION}-SNAPSHOT.jar
+						echo ${t}
+    					'''
+					}
+    		}
+			}
+
+				
+
+		stage("Running Ansible exec") {
+		   agent { node { label 'ansible' } }
+			environment {
+        ANSIBLE_CONFIG='../config/ansible.cfg'
+				}	
+		   steps {
+			script {
+					t=runs(800)
+					echo "$t"
+					}
+			sh '''
+			cd docker
+			ansible-playbook wrap.yml  -e "rolename=deployment" -e "VERSION=${VERSION}"
+			'''
+			}
+			}
+
+        stage("Runnig Test cases") {
+            agent { node { label 'ansible' } }
+            environment {
+            PATH='/usr/local/node/bin:$PATH'
+                }
+            steps {
+                build job: 'teasting'
+                }
+                }
+              }
+	post {
+		always {
+					script {
+						def o=sam("byyyyyy")
+						echo "$o"
+							}
+			}
+		}
+	}
+
+
+def sam(name) {
+	t="saaam" + "praveen" + name
+	return t 
+	}
+
+
+def runs(a) {
+	k="saaaam"
+	sh '''
+		hostname
+		
+		echo "bye ${k}" > /tmp/sam12
+		'''
+	script {	
+		if ( a > 10 )	{
+			return a*2000
+			}
+			}
+		}

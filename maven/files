@@ -1,0 +1,33 @@
+pipeline {
+
+
+	agent none
+
+	environment { 
+	name='Just to print'
+		}
+
+	parameters {
+
+		choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+		}
+
+	stages {
+		stage("Checking out the code")	{
+			agent { node { label 'node03' }}
+
+		when {
+
+			expression { params.var =~ 'a|A' } 
+			}
+
+		steps { 
+		git credentialsId: 'ac6e5816-35a9-4d2d-9685-6bf68d5f8f16', url: 'https://github.com/praveensams/mavencode.git'
+			
+			}
+			}
+
+	}
+
+}
+

@@ -1,0 +1,36 @@
+pipeline {
+        agent none
+
+	stages {
+
+	stage("cloning the repository") {
+
+  	     agent { node { label 'docker' } }
+
+	     steps  {
+	
+				git credentialsId: 'ed673569-0384-4542-991b-2252530d2210', url: 'https://github.com/praveensams/sonarqube.git'
+            } 
+	     }
+
+	stage("moving the files") {
+
+  		agent { node { label 'docker' } }
+	        steps {
+
+		sh '''
+		   git checkout master
+			ls -l
+			whoami
+			id
+		  sudo	docker-compose up -d
+		 
+		  '''
+		  }
+		  }
+		 }
+
+		 }
+
+
+

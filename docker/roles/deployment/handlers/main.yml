@@ -1,0 +1,13 @@
+---
+# handlers file for deployment
+- name: clears
+  shell: |
+        rm -rvf /root/.aws /share/* /home/vagrant/.aws  > /tmp/logs 2>&1
+
+- name: resultshell
+  debug:
+    msg: "{{resultshell.stdout}}"
+
+- name: result
+  debug:
+    msg: "{{result.stdout}}"

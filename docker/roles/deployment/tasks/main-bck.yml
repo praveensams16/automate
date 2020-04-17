@@ -1,0 +1,201 @@
+---
+# tasks file for deployment
+
+- name: installing NTP service
+  package:
+    name:  ["wget","git","net-tools","unzip","ntpdate"]
+    state: "present"
+  tags:
+    - "python"
+ 
+
+- name: installing NTP service
+  package:
+    name:   ["wget","git","ntp","vim","net-tools","unzip"]
+    state: "latest"
+  tags:
+    - "python"
+  when: ( ansible_os_family == 'RedHat' )
+  ignore_errors: yes
+
+- name: NTPdate sync 
+  shell: |
+      ntpdate pool.ntp.org
+  become_user: root
+  tags: 
+    - "time"
+  ignore_errors: yes
+
+- name: Creating java folder
+  file: 
+    path: /usr/local/java
+    state: directory
+  tags: install
+
+- name: Checking stats path
+  shell: |
+       ls /usr/local/java/
+  register: files
+  tags: 
+    - "javainstall"
+
+- name: unarchive
+  unarchive:
+    src: /share/jdk-8u241-linux-x64.tar.gz
+    dest: /usr/local/src 
+  when: ( 'bin'  not in files.stdout ) 
+  tags: 
+    - "javainstall-skip"
+
+- name: Copying the files from local
+  shell: |
+      mv -v /usr/local/src/jdk*/* /usr/local/java/
+  tags: install
+  when: ( 'bin'  not in files.stdout ) 
+  
+
+- name: Finding variable content
+  shell: |
+        cat /etc/profile
+  tags: 
+    - "javainstall"
+  register: java_var
+
+- name: Making environment variable 
+  blockinfile:
+    path: "{{ item }}"
+    block: |
+            export PATH=/usr/local/java/bin:$PATH
+    marker: "## Added By Ansible ##"
+  with_items:
+    - "~/.bashrc"
+    - "~/.bash_profile"
+    - "/etc/profile"
+  when: ( '/usr/local/java' not in java_var.stdout )
+  tags: 
+    - "javainstall"
+  ignore_errors: yes
+
+- name: Copying a service file
+  template:
+    src: "{{item.key }}"
+    dest: "{{ item.value }}"
+    mode: 777
+  loop: "{{ lookup('dict', dicts) }}"
+
+- name: stopping the service
+  shell: |
+         /usr/local/bin/run.sh stop
+  ignore_errors: yes
+  tags:
+    - "stop"
+  when: ( ansible_os_family == 'RedHat' )
+
+- name: Killing ubuntu service
+  killservice:
+    port: 8080
+  register: result
+  when: ( ansible_os_family == 'Debian' )
+
+- name: Displaying result
+  debug:
+    msg: "{{result}}"
+  when: ( ansible_os_family == 'Debian' )
+
+- name: downloading aws cli commands
+  aws_s3:
+    bucket: seera-tas
+    object: "/share/tas-{{VERSION}}-SNAPSHOT.jar"
+    dest: "/mnt/tas-{{VERSION}}-SNAPSHOT.jar"
+    mode: get
+    aws_access_key: "{{access}}"
+    aws_secret_key: "{{secret}}"
+  become_user: root
+
+- name: Finding ip address
+  interface:
+    name: "eth1"
+  register: ipadd
+  tags: ports8080
+
+- name: Setting up ipaddress
+  set_fact:
+    ipaddr="{{ipadd['msg']}}"
+  tags: ports8080
+
+- name: finding service port number
+  telnets:
+    ipaddress: "{{ipaddr}}"
+    port: 8080
+  register: ports80801
+  tags: ports8080
+  ignore_errors: yes
+
+
+- name: Starting Java service in Ubuntu
+  command: "nohup /usr/local/java/bin/java -jar /mnt/tas-{{VERSION}}-SNAPSHOT.jar -javaagent:/mnt/appoptics-agent.jar &"
+  async: 10000000000000000
+  poll: 0
+  register: result
+  tags:
+    - "javastart"
+  when: ( ansible_os_family == 'Debian' )
+
+
+- name: Starting Java service in Redhat 
+  shell: |
+         sh /usr/local/bin/run.sh start
+  when:  ports80801.rc == 0 
+  tags:
+    - "javastart"
+  become: true
+  become_user: 'root'
+  when: ( ansible_os_family == 'RedHat' )
+  ignore_errors: yes
+  register: seeresult
+
+- name: seeing result
+  debug:
+    msg: "{{ seeresult.stdout }}"
+  when: ( ansible_os_family == 'RedHat' )
+
+- name: Suspend the service
+  pause:
+    seconds: 30
+
+
+- name: checking the service status 
+  telnets:
+    ipaddress: "localhost"
+    port: 8080
+  register: portstatlive
+  tags:
+    - "statusport"
+  ignore_errors: yes
+
+
+- name: Testing the port listening 
+  debug:
+    msg: "{{ portstatlive}}"
+  notify: clears
+  
+- name: Copying test cases
+  copy:
+    src: "sam.json"
+    dest: "/tmp/sam.json"
+  delegate_to: localhost
+  tags: "testing"
+
+- name: Running test cases
+  shell: |
+         export PATH=/usr/local/node/bin:$PATH
+         newman run /tmp/sam.json 
+  register: postman
+  delegate_to: localhost
+  tags: "testing"
+
+
+- name: diplaying the result
+  debug:
+    msg: "{{ postman.stdout }}"
+  tags: "testing"

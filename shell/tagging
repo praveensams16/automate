@@ -1,0 +1,16 @@
+(
+   export VERSION="${1}"
+   cd /artifacts
+   git clone https://praveensam.sambath%40seera.sa:Pe%40rson%40123@github.com/Seeragroup/TAS.git
+   cd TAS
+       if ( git tag | grep "${VERSION}" )
+       then
+          export VERSION="${VERSION}-`date  +%d%b%y-%H%M`"
+       else
+          export VERSION="${VERSION}"
+       fi
+   git tag "${VERSION}"
+   git push origin "${VERSION}"
+   cd ..
+   rm -rf TAS
+)

@@ -1,0 +1,57 @@
+#!/usr/bin/env groovy
+
+pipeline {
+        agent none
+        
+        parameters {
+                 choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+                 }
+
+        stages {
+                stage("Checking out newcode") {
+                agent { node { label 'kubmaster' } }
+              
+                        when {
+                                expression { params.var =~ 'a|A' }
+                                }
+                        steps {
+                                git credentialsId: '1097c8c8-92d7-4935-af21-14d05d97ba6a', url: 'https://github.com/praveensams/megna.git'                       
+                                }
+                        }
+                
+                stage("formatting the data") {
+                       agent { node { label 'kubmaster' } }
+                       steps
+                       {
+					       
+                           sh '''git checkout master && echo "Adding the date `date`" >> index.html && sudo cp -rf index.html /tmp/index.html'''
+                       }
+                }
+
+                stage("moving the job to remote machine") {
+                       agent { node { label 'kubmaster' } }
+                       steps
+                       {
+                           sh '''sudo cp /tmp/index.html /var/www/html/'''
+                       }
+                }
+          
+          stage("validating the application") {
+                       agent { node { label 'kubmaster' } }
+                       steps
+                       {
+                            sh ''' if (curl -s localhost | grep devops ) > /dev/null
+            then
+            echo "Code deployed successfully"
+            else 
+            exit 7
+            fi
+       
+    '''
+                       }
+                }
+
+                }
+        }
+
+

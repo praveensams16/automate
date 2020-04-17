@@ -1,0 +1,119 @@
+---
+# tasks file for deployment
+
+- name: installing NTP service
+  package:
+    name:  ["wget","git","net-tools","unzip","ntpdate"]
+    state: "present"
+  tags:
+    - "python"
+
+- name: installing NTP service
+  package:
+    name:   ["wget","git","ntp","vim","net-tools","unzip"]
+    state: "latest"
+  tags:
+    - "python"
+  when: ( ansible_os_family == 'RedHat' )
+  ignore_errors: yes
+
+- name: NTPdate sync 
+  shell: |
+      ntpdate pool.ntp.org
+  become_user: root
+  tags: 
+    - "time"
+  ignore_errors: yes
+
+
+- name: stopping the service
+  shell: |
+         /usr/local/bin/run.sh stop
+  ignore_errors: yes
+  tags:
+    - "stop"
+  when: ( ansible_os_family == 'RedHat' )
+
+- name: Killing ubuntu service
+  killservice:
+    port: 8080
+  register: result
+  when: ( ansible_os_family == 'Debian' )
+
+- name: Displaying result
+  debug:
+    msg: "{{result}}"
+  when: ( ansible_os_family == 'Debian' )
+
+- name: Copying packages to cli commands
+  copy:
+    src:  "/artifacts/tas-{{VERSION}}-SNAPSHOT.jar"
+    dest: "/mnt/tas-{{VERSION}}-SNAPSHOT.jar"
+  become_user: root
+
+- name: Finding ip address
+  interface:
+    name: "ens3"
+  register: ipadd
+  tags: ports8080
+
+- name: Setting up ipaddress
+  set_fact:
+    ipaddr="{{ipadd['msg']}}"
+  tags: ports8080
+
+- name: finding service port number
+  telnets:
+    ipaddress: "{{ipaddr}}"
+    port: 8080
+  register: ports80801
+  tags: ports8080
+  ignore_errors: yes
+
+
+- name: Starting Java service in Ubuntu
+  command: "nohup java -jar /mnt/tas-{{VERSION}}-SNAPSHOT.jar &"
+  async: 10000000000000000
+  poll: 0
+  register: result
+  tags:
+    - "javastart"
+  when: ( ansible_os_family == 'Debian' )
+
+
+- name: Starting Java service in Redhat 
+  shell: |
+         sh /usr/local/bin/run.sh start
+  when:  ports80801.rc == 0 
+  tags:
+    - "javastart"
+  become: true
+  become_user: 'root'
+  when: ( ansible_os_family == 'RedHat' )
+  ignore_errors: yes
+  register: seeresult
+
+- name: seeing result
+  debug:
+    msg: "{{ seeresult.stdout }}"
+  when: ( ansible_os_family == 'RedHat' )
+
+- name: Suspend the service
+  pause:
+    seconds: 30
+
+
+- name: checking the service status 
+  telnets:
+    ipaddress: "localhost"
+    port: 8080
+  register: portstatlive
+  tags:
+    - "statusport"
+
+
+- name: Testing the port listening 
+  debug:
+    msg: "{{ portstatlive}}"
+  notify: clears
+  

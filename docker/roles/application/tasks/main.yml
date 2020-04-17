@@ -1,0 +1,12 @@
+---
+# tasks file for application
+
+- name: valid url
+  validurl:
+    location: "http://www.gole.com"
+  register: result
+
+
+- name: validation
+  debug:
+    msg: "{{result}}"

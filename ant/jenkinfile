@@ -1,0 +1,35 @@
+pipeline {
+	agent none
+	parameters {
+		 choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+		 }
+    environment {
+		s="sam"
+		}
+
+
+	stages {
+		stage("Git url") {
+		agent { node { label 'master' } }
+			when {
+				expression { params.var =~ 'a|A' }
+				}
+			steps {
+				git credentialsId: 'b6305478-b5c4-4c52-b797-0aa87673a51a', url: 'https://github.com/praveensams/ant.git'
+				}
+			}
+	
+		stage('Deploying code to the location') {
+			agent { node { label 'master' } }
+			steps {
+			sh ''' 
+			git checkout master
+			export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.171-8.b10.el7_5.x86_64/
+			echo "${JAVA_HOME}"
+			echo "${s}"
+			'''
+			}
+			}
+		}
+	}
+

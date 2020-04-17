@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  tomcat:
+  - apiVersion: v1
+    appVersion: 9.0.30
+    created: "2020-01-26T14:52:49.184301375+03:00"
+    description: Chart for Apache Tomcat
+    digest: sha256:3f5078ddb73618cbc5f7457caf9a63a888832e17f220517e38421c28e7af1e31
+    engine: gotpl
+    home: http://tomcat.apache.org
+    icon: https://bitnami.com/assets/stacks/tomcat/img/tomcat-stack-110x117.png
+    keywords:
+    - tomcat
+    - java
+    - http
+    - web
+    - application server
+    - jsp
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: tomcat
+    sources:
+    - https://github.com/bitnami/bitnami-docker-tomcat
+    urls:
+    - http://127.0.0.1:8879/charts/tomcat-6.1.4.tgz
+    version: 6.1.4
+generated: "2020-01-20T12:05:19.992022878+03:00"

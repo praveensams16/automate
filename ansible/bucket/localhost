@@ -1,0 +1,9 @@
+[dev]
+localhost aws_access_key="AKIAVHINJLHVHWLTMQBD" aws_secret_key="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" region="us-west-1"
+
+[dev1]
+jenkins ansible_ssh_host="{{ hosts }}" ansible_ssh_user=ec2-user
+
+
+[dev1:vars]
+ansible_ssh_private_key_file = "~/.ssh/sam"

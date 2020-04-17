@@ -1,0 +1,33 @@
+pipeline {
+	agent any
+	environment {
+		a='praveen'
+		}
+
+	stages {
+
+		stage('build') {
+		  agent { node { label 'kub201' }}
+		   when {
+		   	expression { "${a}" =~ /pr\w{5}\b/ }
+				}
+			steps {
+			print "${a}"
+			print "hiii"
+			sh ''' echo "bye" '''
+			script {
+				if ( "${a}" =~ /pe\w{5}\b/ )
+					{
+					echo "now I am going to do this "
+						}
+					}
+			}
+			}
+
+		}
+	
+	}
+
+
+
+

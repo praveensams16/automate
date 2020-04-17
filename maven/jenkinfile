@@ -1,0 +1,28 @@
+pipeline {
+	agent none
+	parameters {
+		 choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+		 }
+	stages {
+		stage("[0m Now not") {
+		agent { node { label 'master' } }
+			when {
+				expression { params.var =~ 'a|A' }
+				}
+			steps {
+
+			sh ''' echo hiii'''
+				}
+			}
+	
+		stage('SHow maven') {
+			agent { node { label 'node03' } }
+			steps {
+			sh '''
+			env
+			'''
+			}
+			}
+		}
+	}
+

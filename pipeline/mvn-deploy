@@ -1,0 +1,52 @@
+
+pipeline {
+    environment {
+      time="${time}"
+      PATH = "/maven1/bin:/java/bin:${PATH}"
+      }
+
+    agent { node { label 'master' } }
+
+    stages {
+        stage("my name is praveen") {
+        agent { node { label 'ansible' } }
+        steps {
+        git credentialsId: '4db1b4ea-8f40-494d-bcd4-46a0c5ec0c20', url: 'https://github.com/praveensams/sridata.git'
+            }
+            }
+        stage("Running test") {
+            agent { node { label 'ansible' } }
+            steps {
+                sh '''
+                git checkout master 
+                mvn test '''
+                }
+                }
+        stage("Preparing package") {
+            agent { node { label 'ansible' } }
+            steps {
+                sh '''
+                    git checkout master
+                    mvn package 
+                    cp -rvf target/*.jar /tmp/
+                    '''
+                    }
+                   }
+
+        stage("Pushing package") {
+            agent { node { label 'ansible' } }
+            steps {
+                sh '''
+                    cd pipeline
+                    ls
+                    s=$(ls /tmp/*.jar)
+                    echo $s
+                    ansible-playbook copying.yml -e "artifact=$s"
+                    '''
+                    }
+                   }
+                   }
+   }
+
+
+

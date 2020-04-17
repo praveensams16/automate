@@ -1,0 +1,15 @@
+- hosts: localhost
+  become: true
+
+
+  tasks:
+    - name: Installing packages
+      yum:
+        name: ["httpd","httpd-tools"]
+        state: "installed"
+
+    - name: starting service
+      service:
+        name: "httpd"
+        state: "restarted"
+        enabled: "yes"

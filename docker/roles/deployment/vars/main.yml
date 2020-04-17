@@ -1,0 +1,11 @@
+---
+# vars file for deployment
+dicts:
+  "run.sh.j2": "/usr/local/bin/run.sh"
+  "java.service.j2": "/etc/systemd/system/tas.service"
+runme: 'false'
+bucket: "samdeletes13"
+user: "admin"
+pass: "redhat"
+Debian: ["wget","git","net-tools","unzip","ntpdate"]
+RedHat: ["wget","git","ntp","vim","net-tools","unzip"]

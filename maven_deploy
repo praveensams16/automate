@@ -1,0 +1,36 @@
+pipeline {
+	agent none
+	
+	
+	parameters {
+	    choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+		}
+
+   stages {
+      stage("downloading code") {
+	      agent { node { label 'repo' } } 
+		  when {
+
+		      expression { params.var =~ 'a' } 
+			  }
+
+		  steps {
+			git credentialsId: 'c417289e-c467-4abb-a997-74597ec1af26', url: 'https://github.com/praveensams/mavencode.git'
+				}
+			 }
+
+		stage("copying the files") {
+		   agent { node { label 'repo' } }
+		   steps {
+		   sh '''
+		   git checkout master
+		   export JAVA_HOME=/java
+		   export PATH=/java/bin:$PATH
+		   export M2_HOME=/maven
+		   export PATH=$M2_HOME/bin:$PATH
+		   mvn package
+		   '''
+ 		}
+	}
+	}	
+}

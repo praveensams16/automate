@@ -1,0 +1,10 @@
+- hosts: dev
+  become: true
+
+  tasks:
+    - name: copying
+      copy:
+        src: "{{artifact}}"
+        dest: /mnt/
+
+    

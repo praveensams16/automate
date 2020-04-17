@@ -1,0 +1,12 @@
+- hosts: dev
+  become: true
+  vars:
+    location: "/mnt/sam/"
+    script: ['/stop-caServer01.sh','/stop-nyServer03.sh','/stop-ohServer02.sh']
+  
+  tasks:
+    - name: playing files
+      debug:
+        msg: "{{location}}/{{item}}"
+      with_items:
+        - "{{ script }}"

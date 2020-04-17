@@ -1,0 +1,30 @@
+pipeline {
+		
+		agent none		
+
+	stages {
+		stage("from master")
+			{
+			agent { node { label 'master' }}
+			steps {
+			script {
+			env.var = sh(script: 'echo "bye"',returnStdout: true).trim()
+        }
+			}
+
+		}
+		stage("Running in slave")
+			{
+			agent { node { label 'master' }}
+			steps {
+			sh '''
+				echo ${var}
+			'''
+			}
+	}
+	
+
+   }
+}
+
+

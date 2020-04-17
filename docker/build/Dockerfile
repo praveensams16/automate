@@ -1,0 +1,3 @@
+FROM jenkinsxio/jenkinsx:latest
+
+

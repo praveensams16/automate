@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "62fae27f-df75-4b1e-a0d9-0dabe80cd778",
+		"name": "lumirental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "lumirental",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "102ac2d8-7392-4d2d-9f1d-1fe8cc6a55ca",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"does not match\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "reservationNo",
+							"value": " 754010",
+							"type": "text"
+						},
+						{
+							"key": "statusChange",
+							"value": " A",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://uat.lumirental.com/modify_complete/",
+					"protocol": "https",
+					"host": [
+						"uat",
+						"lumirental",
+						"com"
+					],
+					"path": [
+						"modify_complete",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lumirental-1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "reservationNo",
+							"value": " 754010",
+							"type": "text"
+						},
+						{
+							"key": "statusChange",
+							"value": " A",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://uat.lumirental.com/modify_complete/",
+					"protocol": "https",
+					"host": [
+						"uat",
+						"lumirental",
+						"com"
+					],
+					"path": [
+						"modify_complete",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lumirental-downloads",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "reservationNo",
+							"value": " 754010",
+							"type": "text"
+						},
+						{
+							"key": "statusChange",
+							"value": " A",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://uat.lumirental.com/modify_complete/",
+					"protocol": "https",
+					"host": [
+						"uat",
+						"lumirental",
+						"com"
+					],
+					"path": [
+						"modify_complete",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

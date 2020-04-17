@@ -1,0 +1,55 @@
+pipeline {
+
+   agent none 
+
+   parameters {
+       choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+	   }
+
+	stages {
+	 
+	  stage("Downloading the code") {
+	       agent { node { label 'node03' } }
+		   when {
+		      expression { params.var =~ 'a' }
+			     }
+		   steps {
+		      git credentialsId: '1097c8c8-92d7-4935-af21-14d05d97ba6a', url: 'https://github.com/praveensams/mavencode.git'
+				}
+
+			   }
+
+		stage("Building maven code") {
+			agent { node { label 'node03' } }
+			steps {
+				sh '''
+				git checkout master
+				sh sam.sh
+				'''
+				}
+				}
+
+        stage("uploading the maven code to nexus repository") {
+		    agent { node { label 'node03' } }
+			steps {
+			    sh '''
+				find . -name '*.jar' > /tmp/sam
+				curl -v -u admin:admin123 --upload-file $(cat /tmp/sam) http://192.168.33.110:8081/repository/maven_upload/$( basename `cat /tmp/sam`)
+				'''
+				}
+				}
+
+        stage("Download the repository") {
+			agent { node { label 'kub201' } }
+			 steps {
+			   sh '''
+                 wget  http://192.168.33.110:8081/repository/maven_upload/SampleWebApp123-1.0-SNAPSHOT.jar
+				 sudo cp -rf SampleWebApp123-1.0-SNAPSHOT.jar /var/www/html/
+				 '''
+				 }
+				 }
+
+		}
+
+}
+

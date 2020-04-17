@@ -1,0 +1,17 @@
+---
+# tasks file for temtest
+#
+- name: Creating directory
+  file:
+    name: "/mnt/library"
+    state: directory
+
+- name: copying the template to /mnt/location
+  copy:
+    src: "httpd.conf.j2"
+    dest: "/mnt/library/httpd.conf.j2"
+
+- name: content play
+  content:
+    location: "httpd.conf.j2"
+    content: "sam" 

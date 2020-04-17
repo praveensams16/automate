@@ -1,0 +1,14 @@
+- hosts: dev
+  become: true
+  serial: 30%
+  vars:
+    sam: ['a','b']
+    sam1: ['a','b']
+
+  tasks:
+    - name: play ing 
+      debug:
+        msg: "{{ item[0]}}/{{item[1]}}"
+      with_nested:
+        - "{{sam}}"
+        - "{{sam1}}"

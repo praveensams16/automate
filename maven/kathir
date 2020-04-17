@@ -1,0 +1,54 @@
+pipeline {
+        agent none
+
+        parameters {
+                 choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+                 }
+
+        stages {
+
+		stage("checking out the new code")
+		     {
+			  agent { node { label 'ansible' } }
+			  steps {
+
+					git credentialsId: 'd0faddba-e43f-44f7-88ab-048c136ee196', url: 'https://github.com/praveensams/mavencode.git'
+
+					sh '''
+
+
+					export M2_HOME=/maven
+					export PATH=$PATH:$M2_HOME/bin
+
+					mvn clean
+					sleep 1
+					mvn compile
+					sleep 1
+					mvn package
+
+					'''
+					}
+			}
+
+		stage("uploading to nexus repository")
+			{
+			agent { node { label 'ansible' } }
+			steps {
+				sh '''
+				 curl -u admin:admin123  --upload /home/vagrant/workspace/kathir_pipeline/target/SampleWebApp123-1.0-SNAPSHOT.jar http://192.168.33.100:8081/repository/kathir/SampleWebApp123-1.0-SNAPSHOT.jar
+				 '''
+		}
+
+		}
+		stage("downloading to node8 repo location")
+			{
+			agent { node { label 'ansible' } }
+			steps {
+			sh '''
+            ansible node8 -m shell -a "cd /usr/local/src/ && wget  http://192.168.33.100:8081/repository/kathir/SampleWebApp123-1.0-SNAPSHOT.jar " -b
+            '''
+			}
+			}
+
+   } //stage closing
+ } // pipeline closing

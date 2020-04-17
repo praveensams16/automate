@@ -1,0 +1,58 @@
+pipeline {
+	agent none
+	
+	parameters {
+      string(defaultValue: "false", description: 'What environment?', name: 'VAR')
+		}
+
+   stages {
+
+   stage('run-parallel-branches') {
+  steps {
+    parallel(
+      a: {
+	   script {
+	   println("I amgoing into if condition")
+	   if ( "${VAR}" == 'false' )
+	   {
+	   println("I am from if condition")
+	   def s="saaam"
+	   for ( i in ['a','b','c','d'])
+	   	{
+	   	build job: 'test' , parameters: [[ $class: 'StringParameterValue', name: 'VAR', value: "${i}" ]]
+	   	}
+		}
+           else
+	        {
+		println("Calling from the condition")
+		}
+	
+	   }
+        echo "This is branch s"
+      },
+      b: {
+	   script {
+	   println("I amgoing into if condition")
+	   if ( "${VAR}" == 'false' )
+	   {
+	   println("I am from if condition")
+	   def s="saaam"
+	   for ( i in ['a','b','c','d'])
+	   	{
+	   	build job: 'test' , parameters: [[ $class: 'StringParameterValue', name: 'VAR', value: "${i}" ]]
+	   	}
+		}
+           else
+	        {
+		println("Calling from the condition")
+		}
+	
+	   }
+        echo "This is branch s"
+      }
+
+    )
+  }
+}
+}
+}

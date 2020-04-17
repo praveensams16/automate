@@ -1,0 +1,6 @@
+---
+# vars file for deployment
+serv:
+  "run.sh.j2": "/usr/local/bin/run.sh"
+  "java.service.j2": "/etc/systemd/system/java.service"
+runme: 'false'

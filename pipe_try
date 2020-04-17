@@ -1,0 +1,29 @@
+pipeline {
+	agent none
+	parameters {
+		 string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+		 string(name: 'BRANCH', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+		 }
+
+	stages {
+		stage("Git Download source code") {
+		agent { node { label 'master' } }
+         
+		 steps {
+		 	
+				echo "bye"
+				sam()
+				}
+			
+			  }
+			}
+			}
+
+     def sam() {
+
+	 		echo "d"
+			}
+
+
+
+

@@ -1,0 +1,27 @@
+pipeline {
+	agent none
+	
+	stages {
+		stage("Git url") {
+		agent { node { label 'testing' } }
+			steps {
+			git credentialsId: '46ece276-c749-493c-9d64-d4bc1fb27797', url: 'https://github.com/praveensams/seera-testing.git'
+				}
+			}
+
+
+		stage("running docker command") {
+		agent { node { label 'testing' } }
+			steps {
+            sh '''
+                cd docker/build/docker-image
+                sudo docker-compose build --no-cache
+                sudo docker-compose up -d
+               '''
+				}
+			}
+
+            }
+
+            
+}	

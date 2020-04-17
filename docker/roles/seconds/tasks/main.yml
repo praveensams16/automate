@@ -1,0 +1,9 @@
+---
+- name: Python Execution
+  second:
+    yourName: "testing"
+  register: result
+
+- name: debugs
+  debug:
+    msg: "{{ result }}"

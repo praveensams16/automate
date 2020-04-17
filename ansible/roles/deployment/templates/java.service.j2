@@ -1,0 +1,13 @@
+[Unit]
+ Description = Java Service
+ After network.target = Service_Name.service
+[Service]
+ Type = forking
+ Restart=always
+ RestartSec=1
+ SuccessExitStatus=143 
+ ExecStart = /usr/local/bin/run.sh start
+ ExecStop = /usr/local/bin/run.sh stop
+ ExecReload = /usr/local/bin/run.sh reload
+[Install]
+ WantedBy=multi-user.target

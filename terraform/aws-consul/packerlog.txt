@@ -1,0 +1,26 @@
+2020/04/16 00:40:29 [INFO] Packer version: 1.5.5 [go1.13.7 linux amd64]
+2020/04/16 00:40:29 Checking 'PACKER_CONFIG' for a config file path
+2020/04/16 00:40:29 'PACKER_CONFIG' not set; checking the default config file path
+2020/04/16 00:40:29 Attempting to open config file: /root/.packerconfig
+2020/04/16 00:40:29 [WARN] Config file doesn't exist: /root/.packerconfig
+2020/04/16 00:40:29 Setting cache directory: /root/seera-testing/terraform/aws-consul/packer_cache
+2020/04/16 00:40:29 ui: Usage: packer build [options] TEMPLATE
+
+  Will execute multiple builds in parallel as defined in the template.
+  The various artifacts created by the template will be outputted.
+
+Options:
+
+  -color=false                  Disable color output. (Default: color)
+  -debug                        Debug mode enabled for builds.
+  -except=foo,bar,baz           Run all builds and post-procesors other than these.
+  -only=foo,bar,baz             Build only the specified builds.
+  -force                        Force a build to continue if artifacts exist, deletes existing artifacts.
+  -machine-readable             Produce machine-readable output.
+  -on-error=[cleanup|abort|ask] If the build fails do: clean up (default), abort, or ask.
+  -parallel=false               Disable parallelization. (Default: true)
+  -parallel-builds=1            Number of builds to run in parallel. 0 means no limit (Default: 0)
+  -timestamp-ui                 Enable prefixing of each ui output with an RFC3339 timestamp.
+  -var 'key=value'              Variable for templates, can be used multiple times.
+  -var-file=path                JSON file containing user variables. [ Note that even in HCL mode this expects file to contain JSON, a fix is comming soon ]
+2020/04/16 00:40:29 [INFO] (telemetry) Finalizing.

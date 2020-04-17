@@ -1,0 +1,10 @@
+*.tar.gz
+*.pyc
+.terraform
+jenkins.war
+.git
+*.tfstate.*
+*.log.txt
+*.zip
+*.pw*
+*.hw*

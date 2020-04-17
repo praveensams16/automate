@@ -1,0 +1,33 @@
+{
+  "info": {
+    "_postman_id": "e91f1066-12a6-4abf-9d91-272a179009d5",
+    "name": "seera-tas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "location-management",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://{{address}}/location/index.html",
+          "protocol": "http",
+          "host": [
+            "10",
+            "65",
+            "30",
+            "34"
+          ],
+          "port": "8080",
+          "path": [
+            "location",
+            "index.html"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

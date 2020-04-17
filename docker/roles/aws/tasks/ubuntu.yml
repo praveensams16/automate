@@ -1,0 +1,24 @@
+- name: apt update
+  apt:
+    update_cache: yes
+
+- name: installaing needed packages
+  package:
+    name: ['wget','zip','unzip','python']
+    state: "latest"
+
+- name: untar setuptools
+  unarchive:
+   src: 'https://files.pythonhosted.org/packages/68/75/d1d7b7340b9eb6e0388bf95729e63c410b381eb71fe8875cdfd949d8f9ce/setuptools-45.2.0.zip'
+   dest: /usr/local/src
+   remote_src: yes
+
+- name: installing python modules
+  shell: |
+      cd /usr/local/src/setuptools-45.2.0/ | tee  /tmp/logs
+      python setup.py install | tee -a /tmp/logs
+      easy_install boto3 | tee -a /tmp/logs
+  tags: install
+
+
+

@@ -1,0 +1,32 @@
+pipeline { 
+
+	agent any
+	
+	parameters {
+        choice(
+            choices: 'Development\nTest\nProduction',
+            description: '',
+            name: 'ENV')
+			string(defaultValue: "master", description: 'What environment?', name: 'BRANCH')
+            string(defaultValue: "master", description: 'What environment?', name: 'CORE_LIBRARY_BRANCH')
+
+    }
+  stages {
+	stage("\u2777 build") {
+			steps {
+			echo "********** Triggering Build Job *******************"
+            build job: 'Webuicopy_Multibranch', parameters: [[ $class: 'StringParameterValue', name: 'ENV' ,value: "${ENV}" ], [ $class: 'StringParameterValue', name: 'BRANCH' ,value: "${BRANCH}" ], [ $class: 'StringParameterValue', name: 'CORE_LIBRARY_BRANCH' ,value: "${CORE_LIBRARY_BRANCH}" ]]
+    		}
+	}
+	stage("\u2777 Deploy") {
+			steps {
+			echo "********** Triggering Deploy Job *******************"
+            build job: 'webuideploy_multibranch', parameters: [[ $class: 'StringParameterValue', name: 'BRANCH', value: "${BRANCH}" ]]
+    		}
+	}
+
+
+	}
+
+
+ }

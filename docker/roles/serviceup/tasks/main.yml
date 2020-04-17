@@ -1,0 +1,13 @@
+---
+# tasks file for serviceup
+
+- name: checking port up
+  telnets:
+    ipaddress: "www.google.com"
+    port: 81
+  register: result
+
+
+- name: debugging 
+  debug:
+    msg: "{{ result }}"

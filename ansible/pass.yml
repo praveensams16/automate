@@ -1,0 +1,20 @@
+- hosts: localhost
+  become: true
+
+  tasks:
+    - name: find and replace 
+      replace:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthen.*'
+        replace: 'PasswordAuthentication yes'
+
+    - name: setting up password
+      user:
+        name: root
+        update_password: always
+        password: '$1$lbevgbue$OSSUShJZWadM5ameNKvfj/'
+
+    - name: service restart
+      service:
+        name: "sshd"
+        state: restarted

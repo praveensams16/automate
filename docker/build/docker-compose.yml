@@ -1,0 +1,13 @@
+version: '3'
+    
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: docker-jenkins
+    ports:
+      - '8080:8080'
+
+
+
+      

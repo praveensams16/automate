@@ -1,0 +1,43 @@
+pipeline {
+	agent none
+	
+	parameters {
+	    choice(choices: 'a\nb\nc\nd', description: 'Allowing names', name: 'var')
+		}
+
+   stages {
+      stage("downloading code") {
+	      agent { node { label 'kubnode' } } 
+		  when {
+
+		      expression { params.var =~ 'a' } 
+			  }
+
+		  steps {
+		    git credentialsId: '7624892a-b6c6-4813-a21d-481f77326219', url: 'https://github.com/praveensams/morning-apache.git'
+ 
+				}
+			 }
+
+		stage("copying the files") {
+		   agent { node { label 'kubnode' } }
+		   steps {
+		   sh 'echo ${var} >> index.html'
+		   sh 'sudo cp -vrf index.html /var/www/html'
+		   }
+
+			 }
+
+	       stage("ruuning service restart")
+	       	{
+			agent { node { label 'kubnode' } }
+			steps {
+			sh '''
+			sudo service httpd restart
+			'''
+			}
+			}
+ 		}	 
+
+ }
+

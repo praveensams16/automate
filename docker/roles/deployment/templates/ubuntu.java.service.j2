@@ -1,0 +1,17 @@
+[Unit]
+Description=My Webapp Java REST Service
+[Service]
+User=ubuntu
+# The configuration file application.properties should be here:
+#change this to your workspace
+WorkingDirectory=/usr/local/bin
+#path to executable.
+#executable is a bash script which calls jar file
+ExecStart=/usr/local/bin/run.sh
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
+

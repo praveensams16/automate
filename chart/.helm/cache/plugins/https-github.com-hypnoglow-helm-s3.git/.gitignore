@@ -1,0 +1,10 @@
+bin/*
+tmp
+releases
+vendor
+
+.env
+coverage.txt
+
+.idea
+*.iml
