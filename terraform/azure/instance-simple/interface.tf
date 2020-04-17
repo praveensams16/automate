@@ -7,5 +7,6 @@ resource "azurerm_network_interface" "local-inter" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.local-subnet.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.local-publicip.id
   }
 }

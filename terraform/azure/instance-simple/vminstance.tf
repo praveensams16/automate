@@ -29,3 +29,9 @@ resource "azurerm_linux_virtual_machine" "example" {
 output "ipaddress" {
     value = azurerm_linux_virtual_machine.example.public_ip_address
     }
+
+
+output "ipaddresspri" {
+    value = azurerm_linux_virtual_machine.example.private_ip_address
+    }
+
