@@ -1,0 +1,23 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `aws_access_key`}}",
+    "aws_secret_key": "{{env `aws_secret_key`}}"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-east-1",
+    "source_ami": "ami-0323c3dd2da7fb37d",
+    
+    "instance_type": "t2.micro",
+    "ssh_username": "ec2-user",
+    "ami_name": "ami-00000123"
+  }],
+   "provisioners": [
+     {
+         "type": "shell",
+         "script": "sam1.sh"
+   }
+   ]
+}
