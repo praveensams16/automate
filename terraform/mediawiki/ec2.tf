@@ -6,13 +6,14 @@ resource "aws_instance" "foo" {
    security_groups = [aws_security_group.sc.id]
    user_data = <<-EOF
                 #! /bin/bash
-                yum install git -y
-                yum install ansible -y > /tmp/logs
-                curl -s https://raw.githubusercontent.com/praveensams/docker-ansible/master/plays | bash | tee -a /tmp/logs
+                sudo yum install git -y
+                sudo yum install ansible -y > /tmp/logs
+                curl -s https://raw.githubusercontent.com/praveensams/docker-ansible/master/plays | sudo bash | tee -a /tmp/logs
+                cd /mnt/
                 git clone https://github.com/praveensams/automate.git
                 cd chart/build/mediawiki
-                docker-compose build
-                docker-compose up -d
+                sudo docker-compose build | tee -a /tmp/logs
+                sudo docker-compose up -d | tee -a /tmp/logs
                 EOF
 
 }
