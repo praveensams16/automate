@@ -8,7 +8,7 @@ resource "aws_instance" "foo" {
                 #! /bin/bash
                 yum install git -y
                 yum install ansible -y > /tmp/logs
-                curl -s https://raw.githubusercontent.com/praveensams/docker-ansible/master/plays | bash
+                curl -s https://raw.githubusercontent.com/praveensams/docker-ansible/master/plays | bash | tee -a /tmp/logs
                 git clone https://github.com/praveensams/automate.git
                 cd chart/build/mediawiki
                 docker-compose build
