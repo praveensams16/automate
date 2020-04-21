@@ -1,13 +1,11 @@
-# Default values for nginx.
+# Default values for volumes.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-namespace: "nginx"
 
 image:
-  repository: praveensam/nginx
-  tag: v60
+  repository: nginx
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -35,8 +33,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
-  targetport: 80
+  type: ClusterIP
   port: 80
 
 ingress:
