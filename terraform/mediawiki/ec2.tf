@@ -9,9 +9,7 @@ resource "aws_instance" "foo" {
                 sudo yum install git -y
                 sudo yum install ansible -y > /tmp/logs
                 curl -s https://raw.githubusercontent.com/praveensams/docker-ansible/master/plays | sudo bash | tee -a /tmp/logs
-                ansible-pull -i localhost -U  https://github.com/praveensams/automate.git terraform/mediawiki/deployer.yml  
-                cd /mnt/
-                
+                ansible-pull -i localhost -U  https://github.com/praveensams/automate.git terraform/mediawiki/deployer.yml   | tee -a /tmp/logs
                 EOF
 
 }
