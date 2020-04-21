@@ -1,0 +1,20 @@
+FROM ubuntu
+
+LABEL env="PHP" \
+      PLATFORM="APACHE"
+
+RUN  apt-get update \ 
+     && apt-get install  imagemagick php-fpm php-intl php-xml php-curl php-gd php-mbstring php-mysql php-mysql php-apcu php-zip -y \
+     &&  apt-get install apache2 apache2-doc  apache2-utils libexpat1 -y \
+     && apt install php libapache2-mod-php wget -y
+
+RUN  cd /var/www/html \
+     && wget -O mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/1.32/mediawiki-1.32.0.tar.gz \
+     && tar -zxvf mediawiki.tar.gz \
+     && mv mediawiki-1.32.0 mediawiki \
+     && apt-get install mysql-client -y  \
+     && apt-get install iputils-ping -y
+
+CMD ["apachectl","-D","FOREGROUND"]
+
+
