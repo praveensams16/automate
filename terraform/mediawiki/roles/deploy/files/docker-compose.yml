@@ -1,0 +1,20 @@
+version: "3"
+
+services: 
+
+  front: 
+    build:
+      context: .
+      dockerfile: php
+    ports:
+      - "80:80"
+    links:
+      - "mysql"
+
+  mysql:
+    build:
+      context: .
+      dockerfile: mysql
+    ports:
+      - "3306:3306"
+
