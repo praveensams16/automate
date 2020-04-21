@@ -4,8 +4,7 @@
   copy:
     src: "{{item}}"
     dest: "/mnt/{{item}}"
-  loop:
-    - "{{ files }}"
+  loop:  "{{ files }}"
 
 - name: Running docker compose commands
   shell: |
