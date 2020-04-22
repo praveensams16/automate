@@ -7,6 +7,10 @@ RUN apt-get update \
  && chown -R mysql:mysql /var/run/mysqld
 
 COPY data.sql /mnt/
+
+COPY run.sh /mnt/
+
+RUN chmod +x /mnt/run.sh
  
 VOLUME ["/var/lib/mysql"]
  
