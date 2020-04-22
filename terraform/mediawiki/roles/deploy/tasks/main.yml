@@ -11,3 +11,5 @@
         cd /mnt
         docker-compose build
         docker-compose up -d
+        sleep 180
+        docker-compose exec mysql sh /mnt/run.sh
