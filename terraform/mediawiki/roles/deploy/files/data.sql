@@ -1,4 +1,4 @@
 create database mediawikidb;
-grant all privileges on mediawikidb.* to mediawiki@'localhost' identified by '5tr0ngPa55w0rd';
+grant all privileges on mediawikidb.* to mediawiki@'%' identified by 'redhat';
 flush privileges;
 
