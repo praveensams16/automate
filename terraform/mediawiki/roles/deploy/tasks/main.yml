@@ -12,4 +12,8 @@
         docker-compose build
         docker-compose up -d
         sleep 180
+
+- name: Running database implement 
+  shell: |
+        cd /mnt
         docker-compose exec mysql sh /mnt/run.sh
