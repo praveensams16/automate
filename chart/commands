@@ -1,11 +1,1 @@
-eksctl create cluster \
---name prod${1} \
---region us-east-1 \
---nodegroup-name standard-workers \
---node-type t3.medium \
---nodes 3 \
---nodes-min 1 \
---nodes-max 4 \
---ssh-access \
---ssh-public-key ~/.ssh/id_rsa.pub \
---managed
+eksctl create cluster --region=us-west-2 --node-type=t2.small

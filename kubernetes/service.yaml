@@ -9,6 +9,24 @@ spec:
   ports:
   - port: 80
     nodePort: 30080
-    targetPort: 8080
+    targetPort: 80
   selector:
-    app: webapp1
+    author: praveen
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp2-svc
+  labels:
+    app: webapp2
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    nodePort: 30081
+    targetPort: 81
+  selector:
+    author: praveen
+
