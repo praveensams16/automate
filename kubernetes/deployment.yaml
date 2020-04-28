@@ -17,3 +17,7 @@ spec:
         image: praveensam/spring:v21
         ports:
         - containerPort: 8080
+      - name: sam
+        image: httpd
+        ports:
+        - containerPort: 80
