@@ -19,7 +19,7 @@ spec:
       - name: nginx
         image: k8s.gcr.io/nginx-slim:0.8
         ports:
-        - containerPort: 82
+        -containerPort: 82
           name: web
         volumeMounts:
         - name: www
