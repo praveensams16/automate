@@ -5,10 +5,9 @@ metadata:
   labels:
     app: webapp1
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
-    nodePort: 30080
     targetPort: 80
   selector:
     author: praveen
@@ -22,10 +21,9 @@ metadata:
   labels:
     app: webapp2
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
-    nodePort: 30081
     targetPort: 81
   selector:
     author: praveen
