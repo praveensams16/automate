@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: example-ingress
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
@@ -14,5 +14,5 @@ spec:
             servicePort: 80
         - path: /banana
           backend:
-            serviceName: banana-service
-            servicePort: 5678
+            serviceName: webapp2-svc 
+            servicePort: 81
