@@ -1,0 +1,14 @@
+package main
+import (
+    "fmt"
+    "io/ioutil"
+    )
+
+func main() {
+     dat, err := ioutil.ReadFile("/etc/passwd")
+        if err  != nil  {
+            fmt.Println("hiii")
+            }
+         d:=(string(dat))
+            }
+
