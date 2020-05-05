@@ -6,8 +6,9 @@ import (
     "strings"
 	"log"
 	"os"
-    "regexp"
+    rg "regexp"
 )
+
  
 func main() {
 	file, err := os.Open("/etc/passwd")
@@ -29,7 +30,7 @@ func main() {
 	for _, eachline := range txtlines {
            split := strings.Split(eachline,":")
            for i:=0;i<len(split);i++ {
-            k,_ := regexp.MatchString("bash",split[i]) 
+            k,_ := rg.MatchString("bash",split[i]) 
             if k {
                 fmt.Println(split)
             }

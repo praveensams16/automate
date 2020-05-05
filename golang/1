@@ -1,0 +1,18 @@
+package main 
+
+import (
+    "fmt"
+    )
+
+
+func main() {
+  i:=10
+  switch i {
+  
+  case  1 , 10:
+    fmt.Println("hii")
+  default:
+    fmt.Println("Completed") 
+    }
+    }
+
