@@ -5,16 +5,20 @@ import (
         )
 
 type sam struct {
-    a int
-    b int
+    a , b int
     }
 
+
+
+func (s*sam) add(c chan int ) {
+        c <- s.a + s.b
+        }
+
+
 func main() {
-    k:=sam{a:10,b:20}
-    switch {
-        case k.a+k.b>100:
-            fmt.Println("hiii")
-        default:
-            fmt.Println("byyyeeee")
-            }
-            }
+    c:=make(chan int)
+    f:=sam{a:10,b:30}
+    go f.add(c)
+    fmt.Println(<-c)
+    }
+    
