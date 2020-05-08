@@ -1,0 +1,13 @@
+FROM centos
+
+LABEL env=PROD \
+      function=OPERATION
+
+RUN yum install mariadb -y \
+    &&    yum install httpd -y
+
+COPY runs.sh /mnt/
+
+COPY data.sql /mnt/
+
+CMD ["bash","/mnt/runs.sh"]

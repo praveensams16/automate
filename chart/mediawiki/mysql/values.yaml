@@ -7,6 +7,8 @@ replicaCount: 1
 image:
   repository: praveensam/mysql
   tag: v1
+  repository1: praveensam/operation
+  tag1: v3
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []

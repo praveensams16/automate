@@ -8,6 +8,7 @@ RUN apt-get update \
 
 COPY data.sql /mnt/
 COPY mysql.cnf /etc/mysql/conf.d/
+COPY runs.sh /etc/cron.daily/
  
 VOLUME ["/var/lib/mysql"]
  
