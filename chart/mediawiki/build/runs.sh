@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mysql --protocol tcp < /mnt/data.sql
+#mysql --protocol tcp < /mnt/data.sql

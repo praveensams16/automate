@@ -8,7 +8,7 @@ image:
   repository: praveensam/mysql
   tag: v1
   repository1: praveensam/operation
-  tag1: v3
+  tag1: v1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
