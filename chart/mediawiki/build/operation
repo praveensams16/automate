@@ -11,3 +11,5 @@ COPY runs.sh /mnt/
 COPY data.sql /mnt/
 
 CMD ["bash","/mnt/runs.sh"]
+
+#CMD ["httpd","-D","FOREGROUND"]

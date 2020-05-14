@@ -1,49 +1,48 @@
-apiVersion: apps/v1
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "mysql.fullname" . }}
-  labels:
-    {{- include "mysql.labels" . | nindent 4 }}
+  name: mysql
 spec:
-  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "mysql.selectorLabels" . | nindent 6 }}
+      app: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        {{- include "mysql.selectorLabels" . | nindent 8 }}
+        app: mysql
     spec:
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-      serviceAccountName: {{ include "mysql.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 3306
-              protocol: TCP
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-        - name: "httpd"
-          image: "{{ .Values.image.repository1 }}:{{ .Values.image.tag1 | default .Chart.AppVersion }}"
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
+      - image: mysql:5.6
+        name: mysql
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysqlpersistentstorage
+          mountPath: /var/lib/mysql
+      - name: httpd
+        image: praveensam/operation:v5
+        volumeMounts:
+        - name: mysqlpersistentstorage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysqlpersistentstorage
+        persistentVolumeClaim:
+          claimName: mysqldatadisk

@@ -17,7 +17,7 @@ func main() {
     h:=string(out)
     s:=strings.Split(h,"\n")
     for i:=0;i<len(s);i++ {
-      k,_:=regexp.MatchString("ba.h",s[i])
+      k,_:=regexp.MatchString("b",s[i])
       if k {
       fmt.Println("-->" + s[i])
       }

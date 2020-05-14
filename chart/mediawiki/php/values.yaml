@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: praveensam/php
-  tag: v1
+  tag: v6
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
