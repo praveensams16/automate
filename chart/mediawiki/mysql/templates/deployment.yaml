@@ -38,7 +38,7 @@ spec:
         - name: mysqlpersistentstorage
           mountPath: /var/lib/mysql
       - name: httpd
-        image: praveensam/operation:v5
+        image: "praveensam/operation:{{ .Values.image.tag1 }}"
         volumeMounts:
         - name: mysqlpersistentstorage
           mountPath: /var/lib/mysql

@@ -1,4 +1,5 @@
 #!/bin/bash
 
-#mysql --protocol tcp < /mnt/data.sql
+sleep 120
+
 mysql -h mysql.mysql.svc.cluster.local -uroot -ppassword < /mnt/data.sql
