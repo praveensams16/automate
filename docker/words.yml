@@ -1,0 +1,19 @@
+- hosts: dev
+  become: true
+
+  tasks:
+
+    - name: loading file
+      shell: |
+          cat /etc/passwd
+      register: result
+
+
+    - name: Adding files
+      wordmatch:
+        op: "{{ result.stdout }}"
+      register: sam
+
+    - name: Sameer
+      debug:
+        msg:  "{{ sam }}"
