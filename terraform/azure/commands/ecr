@@ -1,0 +1,71 @@
+
+kvamshikanth@gmail.com 
+Support
+help
+27 
+94 
+
+Home
+
+Training
+
+Playground
+
+Quick Training
+
+Hands-On Labs
+
+Learning Paths
+
+Community
+AKS Deep Dive
+Lecture: Container Registries and Container Instances
+Azure Container Registry is a private image repository, allowing you to use images stored in that repository for your pods in AKS. Azure Container Instances can be used in conjuction with AKS to build virtual nodes (see the "Virtual Kubelet" lesson in this course). In this lesson, we'll define ACR and ACI and how they are used in the context of AKS.
+
+Commands Issued in This Lesson
+# Create a resource group
+az group create --name myaks-rg --location eastus
+
+# Create a service principal:  
+az ad sp create-for-rbac --skip-assignment
+
+# Copy the app ID and password from the output:
+{
+  "appId": "4631b7ff-bd2a-4269-80b6-218fc694c0a7",
+  "password": "5c242d31-3617-4198-b663-f40f4f4a1f05"
+}
+
+# Create ACR (must have a unique name):  
+az acr create --resource-group myaks-rg --name aksdeepdive --sku Basic --admin-enabled true
+
+# Add permission for our SP to read ACR images:
+az role assignment create --assignee "47cf0a9a-ffd6-4630-a108-65851636af61" --role acrpull --scope '/subscriptions/....'
+
+# Change directory into cloud drive:
+cd $HOME/clouddrive
+
+# Create a Dockerfile:
+echo "FROM hello-world" > Dockerfile
+
+# Use ACR tasks to build the image and push it to ACR:
+az acr build --image sample/hello-world:v1 --registry aksdeepdive --file Dockerfile .
+
+# Run the image with a command(cmd) from an image location to '/dev/null' which is a device file that reports that the operation succeeded:
+az acr run --registry aksdeepdive --cmd '$Registry/sample/hello-world:v1' /dev/null
+
+# Push another image to the new ACR:
+git clone https://github.com/chadmcrowell/aks-node-docker.git
+
+cd aks-node-docker/app
+
+# Build and push another image:
+az acr build --registry aksdeepdive --image node:v1 .
+How do you feel about this video?
+Flash Cards
+Notes
+Transcript
+Downloads
+Looks like you haven't created any flash cards for this deck yet.
+
+Popular Decks Popular Cards
+AKS Deep Dive
