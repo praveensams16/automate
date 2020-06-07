@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: apache
+spec:
+  hosts:
+    - apache
+  http:
+  - route:
+    - destination:
+        host: apache
+        subset: v81
+      weight: 90
+    - destination:
+        host: apache
+        subset: v82
+      weight: 10

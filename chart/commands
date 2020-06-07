@@ -1,1 +1,1 @@
-eksctl create cluster --region=us-west-2 --node-type=t2.small
+eksctl create cluster --region=us-west-2 --node-type=t2.medium

@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: apache
+spec:
+  host: apache
+  subsets:
+  - name: v81
+    labels:
+      version: v81
+  - name: v82
+    labels:
+      version: v82
+
