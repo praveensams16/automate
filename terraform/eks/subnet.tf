@@ -3,8 +3,7 @@ resource "aws_subnet" "local-front" {
   cidr_block = "10.0.3.0/24"
   availability_zone = "${var.region}a"
   tags = {
-     key = kubernetes.io/cluster/example
-     Value = shared
+     "kubernetes.io/cluster/example" = "shared"
       }
 }
 resource "aws_subnet" "local-back" {
@@ -12,7 +11,6 @@ resource "aws_subnet" "local-back" {
   cidr_block = "10.0.2.0/24"
   availability_zone = "${var.region}b"
   tags = {
-     key = kubernetes.io/cluster/example
-     Value = shared
+     "kubernetes.io/cluster/example" = "shared"
       }
 }
