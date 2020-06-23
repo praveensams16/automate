@@ -3,14 +3,15 @@ provider "azurerm" {
     }
 
 
-resource "azurerm_resource_group" "example" {
-  name     = "testing"
-  location = "East US"
-}
 
-resource "azurerm_storage_account" "lab" {
-  name                     = "testing"
-  resource_group_name      = "testing"
+resource "azurerm_resource_group" "testyou" {
+  location = "East US"
+  name = "testyou"
+  }
+
+resource "azurerm_storage_account" "lab1" {
+  name                     = "testyou"
+  resource_group_name      = "testyou"
   location                 = "East US"
   account_tier            = "Standard"
   account_replication_type = "LRS"
@@ -19,6 +20,7 @@ resource "azurerm_storage_account" "lab" {
     environment = "Terraform Storage"
     CreatedBy = "Admin"
       }
+  depends_on = [azurerm_resource_group.testyou]
   }
 
 
