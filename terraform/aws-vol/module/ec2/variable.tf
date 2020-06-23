@@ -16,3 +16,8 @@ variable "counts" {
 variable "region" {
   type = string
   }
+
+variable "security" {
+  type = string
+
+  }

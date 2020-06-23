@@ -7,5 +7,6 @@ resource "aws_instance" "foo" {
   associate_public_ip_address = true
   key_name = "deployer-key1"
   count = var.counts
+  security_groups = [var.security]
 }
 

@@ -5,3 +5,7 @@ output  "vpc" {
 output "subnet" {
   value = aws_subnet.local.id
   }
+
+output "security" {
+  value = aws_security_group.traffic.id
+  }

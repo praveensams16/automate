@@ -15,6 +15,7 @@ module "ec1" {
   data =  var.data
   counts = 2
   region = var.region
+  security = module.network.security
 }
 
 
