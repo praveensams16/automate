@@ -8,5 +8,8 @@ resource "aws_instance" "foo" {
   key_name = "deployer-key1"
   count = var.counts
   security_groups = [var.security]
+  tags = {
+    Name = "praveen"
+    }
 }
 

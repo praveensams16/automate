@@ -13,7 +13,7 @@ module "ec1" {
   source = "./module/ec2"
   subnet = module.network.subnet
   data =  var.data
-  counts = 2
+  counts = 1
   region = var.region
   security = module.network.security
 }
