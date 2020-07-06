@@ -9,6 +9,6 @@ func main() {
 	var a [5]int
 	fmt.Println(a)
 
-	fmt.Println("hiiiii")
+	fmt.Println("hiiiiiytyty")
 
 }
