@@ -1,14 +1,14 @@
-package main 
+package main
 
 import (
-    "fmt"
-        )
-
+	"fmt"
+)
 
 func main() {
 
-        var a [5]int
-        fmt.Println(a)
+	var a [5]int
+	fmt.Println(a)
 
-        }
+	fmt.Println("hiiiiiytyty")
 
+}
