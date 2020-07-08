@@ -4,8 +4,8 @@ data "aws_instance" "sam" {
     }
     }
 
-resource "aws_ami_from_instance" "example" {
-  name               = "terraform-example"
+resource "aws_ami_from_instance" "stage" {
+  name               = "pricebook-catalog-staging"
   source_instance_id = data.aws_instance.sam.id
   }
 
