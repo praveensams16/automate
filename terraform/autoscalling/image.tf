@@ -48,8 +48,8 @@ resource "aws_autoscaling_group" "bar" {
 }
 EOF
 
-    notification_target_arn = "arn:aws:sns:us-east-1:545177136978:testing"
-    role_arn                = "arn:aws:iam::545177136978:role/deployer"
+    notification_target_arn = aws_sns_topic.sns.id
+    role_arn                = aws_iam_role.test_role.arn
   }
 
   tag {
@@ -69,6 +69,8 @@ EOF
   }
 }
 
-resource "aws_sns_topic" "user_updates" {
+resource "aws_sns_topic" "sns" {
   name = "user-updates-topic"
 }
+
+
