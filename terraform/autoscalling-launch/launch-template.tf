@@ -1,3 +1,8 @@
+
+
+
+
+
 resource "aws_launch_template" "pricebook-catalog" {
   name = "pricebook-catalog"
 
@@ -22,7 +27,7 @@ resource "aws_launch_template" "pricebook-catalog" {
 
   ebs_optimized = true
   
-  image_id = "ami-0cc483cab3aadd3cb"
+  image_id = aws_ami_from_instance.test.id
 
   instance_initiated_shutdown_behavior = "terminate"
 
