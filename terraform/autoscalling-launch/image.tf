@@ -9,7 +9,7 @@ data "aws_instance" "sam" {
     }
     }
 
-resource "aws_ami_from_instance" "stage" {
+resource "aws_ami_from_instance" "test" {
   name               = "pricebook-catalog-staging_${local.timestamp}"
   source_instance_id = data.aws_instance.sam.id
   }
