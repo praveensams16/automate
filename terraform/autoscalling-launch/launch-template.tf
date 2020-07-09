@@ -22,7 +22,7 @@ resource "aws_launch_template" "pricebook-catalog" {
 
   ebs_optimized = true
   
-  image_id = "ami-03e605a7ad3eba572"
+  image_id = "ami-0ec935d8824e56bb6"
 
   instance_initiated_shutdown_behavior = "terminate"
 
@@ -33,6 +33,7 @@ resource "aws_launch_template" "pricebook-catalog" {
 
  # license_specification {
  # license_configuration_arn = "arn:aws:license-manager:eu-west-1:123456789012:license-configuration:lic-0123456789abcdef0123456789abcdef"
+  network_interfaces {
  # }
 
   metadata_options {
@@ -45,7 +46,6 @@ resource "aws_launch_template" "pricebook-catalog" {
     enabled = true
   }
 
-  network_interfaces {
     associate_public_ip_address = true
   }
 
