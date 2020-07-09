@@ -1,66 +1,34 @@
 
-
-
-
-
-resource "aws_launch_template" "pricebook-catalog" {
-  name = "pricebook-catalog"
+resource "aws_launch_template" "pricebook-catalog-launch-as" {
+  name = "pricebook-catalog-launch-as"
 
   block_device_mappings {
     device_name = "/dev/sda1"
 
     ebs {
-      volume_size = 20
+      volume_size = 50
     }
   }
-
-  capacity_reservation_specification {
-    capacity_reservation_preference = "open"
+network_interfaces {
+    associate_public_ip_address = true
   }
 
-  cpu_options {
-    core_count       = 4
-    threads_per_core = 2
-  }
 
-  disable_api_termination = true
-
-  ebs_optimized = true
   
-  image_id = aws_ami_from_instance.test.id
+  #image_id = aws_ami_from_instance.test.id
+
+  image_id = "ami-0363c8a1890ea996c"
 
   instance_initiated_shutdown_behavior = "terminate"
 
   
   instance_type = "t2.micro"
 
-  
-
- # license_specification {
- # license_configuration_arn = "arn:aws:license-manager:eu-west-1:123456789012:license-configuration:lic-0123456789abcdef0123456789abcdef"
-  #network_interfaces {
- # }
-
-  metadata_options {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
-    http_put_response_hop_limit = 1
-  }
-
-  monitoring {
-    enabled = true
-  }
-network_interfaces {
-    associate_public_ip_address = true
-  }
-
-  placement {
-    availability_zone = "us-east-1a"
-  }
+    key_name = "praveensam"
 
   #ram_disk_id = "test"
 
-  vpc_security_group_ids = ["sg-0ba6a4e5f12deb029"]
+  #vpc_security_group_ids = ["sg-0ba6a4e5f12deb029"]
 
   tag_specifications {
     resource_type = "instance"
@@ -69,5 +37,5 @@ network_interfaces {
       Name = "pricebook-catalog-autoscalling"
     }
   }
-
+  
 }
