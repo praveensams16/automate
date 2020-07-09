@@ -22,7 +22,7 @@ resource "aws_launch_template" "pricebook-catalog" {
 
   ebs_optimized = true
   
-  image_id = "ami-0cc483cab3aadd3cb"
+  image_id = "ami-03e605a7ad3eba572"
 
   instance_initiated_shutdown_behavior = "terminate"
 
