@@ -22,7 +22,7 @@ resource "aws_launch_template" "pricebook-catalog" {
 
   ebs_optimized = true
   
-  image_id = "ami-0ec935d8824e56bb6"
+  image_id = "ami-0cc483cab3aadd3cb"
 
   instance_initiated_shutdown_behavior = "terminate"
 
@@ -55,7 +55,7 @@ network_interfaces {
 
   #ram_disk_id = "test"
 
-  vpc_security_group_ids = ["ami-0cd7ca45e6f055b93"]
+  vpc_security_group_ids = ["sg-0ba6a4e5f12deb029"]
 
   tag_specifications {
     resource_type = "instance"
