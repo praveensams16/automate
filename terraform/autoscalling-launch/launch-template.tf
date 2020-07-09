@@ -33,7 +33,7 @@ resource "aws_launch_template" "pricebook-catalog" {
 
  # license_specification {
  # license_configuration_arn = "arn:aws:license-manager:eu-west-1:123456789012:license-configuration:lic-0123456789abcdef0123456789abcdef"
-  network_interfaces {
+  #network_interfaces {
  # }
 
   metadata_options {
@@ -45,7 +45,7 @@ resource "aws_launch_template" "pricebook-catalog" {
   monitoring {
     enabled = true
   }
-
+network_interfaces {
     associate_public_ip_address = true
   }
 
@@ -55,7 +55,7 @@ resource "aws_launch_template" "pricebook-catalog" {
 
   #ram_disk_id = "test"
 
-  vpc_security_group_ids = ["sg-003ec9557a0b3e9aa"]
+  vpc_security_group_ids = ["ami-0cd7ca45e6f055b93"]
 
   tag_specifications {
     resource_type = "instance"
