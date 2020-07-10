@@ -23,7 +23,7 @@ network_interfaces {
   instance_initiated_shutdown_behavior = "terminate"
 
   
-  instance_type = "t2.micro"
+  instance_type = "c5.large"
 
     key_name = "praveensam"
 
