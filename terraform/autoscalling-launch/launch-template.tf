@@ -11,6 +11,7 @@ resource "aws_launch_template" "pricebook-catalog-launch-as" {
   }
 network_interfaces {
     associate_public_ip_address = true
+    security_groups = ["sg-0d5a9d104d516d8ad"]
   }
 
 
@@ -28,7 +29,7 @@ network_interfaces {
 
   #ram_disk_id = "test"
 
-    vpc_security_group_ids = ["sg-06b5f1ed483f307b0"]
+  #vpc_security_group_ids = ["sg-0d5a9d104d516d8ad"]
 
   tag_specifications {
     resource_type = "instance"
