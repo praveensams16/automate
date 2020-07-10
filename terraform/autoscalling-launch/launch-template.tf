@@ -17,7 +17,7 @@ network_interfaces {
   
   #image_id = aws_ami_from_instance.test.id
 
-  image_id = "ami-0363c8a1890ea996c"
+  image_id = aws_ami_from_instance.stage.id
 
   instance_initiated_shutdown_behavior = "terminate"
 
@@ -28,7 +28,7 @@ network_interfaces {
 
   #ram_disk_id = "test"
 
-  #vpc_security_group_ids = ["sg-0ba6a4e5f12deb029"]
+    vpc_security_group_ids = ["sg-06b5f1ed483f307b0"]
 
   tag_specifications {
     resource_type = "instance"
