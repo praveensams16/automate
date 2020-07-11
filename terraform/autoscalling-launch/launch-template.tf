@@ -1,4 +1,3 @@
-
 resource "aws_launch_template" "pricebook-catalog-launch-as" {
   name = "pricebook-catalog-launch-as"
 
@@ -13,10 +12,6 @@ network_interfaces {
     associate_public_ip_address = true
     security_groups = ["sg-0d5a9d104d516d8ad"]
   }
-
-
-  
-  #image_id = aws_ami_from_instance.test.id
 
   image_id = aws_ami_from_instance.stage.id
 
