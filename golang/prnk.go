@@ -4,12 +4,16 @@ import (
 	"fmt"
 )
 
-func sam(i int) int {
-	return i * 3
+type runs struct {
+	a, b int
+}
+
+func (r runs) sam(i int) int {
+	return i*3 + r.a + r.b
 }
 
 func main() {
-	s := sam(10)
+	r := runs{20, 10}
+	s := r.sam(10)
 	fmt.Println(s)
-
 }
