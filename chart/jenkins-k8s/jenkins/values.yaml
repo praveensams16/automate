@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: praveensam/jenkins:v1
+  repository: docker.io/praveensam/jenkins:v1
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
