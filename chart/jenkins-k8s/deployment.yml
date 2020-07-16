@@ -17,7 +17,7 @@ items:
       app: jenkins-master
       version: "latest"
       group: "jenkins"
-    namespace: "jenkins"
+      namespace: "jenkins"
   spec:
     replicas: 1
     selector:
@@ -57,7 +57,8 @@ items:
   metadata:
     name: "jenkins-volume-claim"
     annotations:
-      volume.beta.kubernetes.io/storage-class: standard
+      volume.beta.kubernetes.io/storage-class: gp2
+    namespace: "jenkins"
   spec:
     accessModes:
     - ReadWriteOnce
@@ -104,3 +105,18 @@ items:
             serviceName: "jenkins-master-service"
             servicePort: 80
           path: "/"
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: mysql
+    labels:
+      type: amazonEBS
+  spec:
+    capacity:
+      storage: 10Gi
+    accessModes:
+      - ReadWriteOnce
+    awsElasticBlockStore:
+      volumeID: vol-06f4aae24cc8de4be
+      fsType: ext4
+  
