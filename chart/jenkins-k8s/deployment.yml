@@ -57,7 +57,7 @@ items:
   metadata:
     name: "jenkins-volume-claim"
     annotations:
-      volume.beta.kubernetes.io/storage-class: gp2
+      volume.beta.kubernetes.io/storage-class: gp2-new
     namespace: "jenkins"
   spec:
     accessModes:
@@ -122,7 +122,7 @@ items:
 - kind: StorageClass
   apiVersion: storage.k8s.io/v1
   metadata:
-    name: gp2
+    name: gp2-new
     annotations:
       storageclass.kubernetes.io/is-default-class: "true"
   provisioner: kubernetes.io/aws-ebs
