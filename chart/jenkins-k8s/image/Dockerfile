@@ -10,5 +10,6 @@ RUN /usr/local/bin/install-plugins.sh greenballs
 RUN /usr/local/bin/install-plugins.sh simple-theme-plugin
 # Scaling (4)
 RUN /usr/local/bin/install-plugins.sh kubernetes
-VOLUME /var/jenkins_home (5)
+# volume mount
+VOLUME /var/jenkins_home 
 USER jenkins
