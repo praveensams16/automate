@@ -15,7 +15,7 @@ pipeline {
 				PATH = "/java/bin:/maven/bin:$PATH"
 				}
 			steps {
-            git credentialsId: '4db1b4ea-8f40-494d-bcd4-46a0c5ec0c20', url: 'https://github.com/Seeragroup/TAS.git'
+                git credentialsId: '4db1b4ea-8f40-494d-bcd4-46a0c5ec0c20', url: 'https://github.com/praveensams/maven-code.git'
 			sh '''
 				which java
 				which mvn
