@@ -1,0 +1,40 @@
+pipeline {
+	agent none
+  options { timestamps() }
+	parameters {
+			string(defaultValue: "1.0.0.1", description: 'Package version : default 1.0.0.1', name: 'var')
+		 }
+  environment {
+        VERSION = "${params.var}"
+							}
+	stages {
+
+		stage("Git url") {
+		agent { node { label 'ansible' } }
+		environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+            git credentialsId: '4db1b4ea-8f40-494d-bcd4-46a0c5ec0c20', url: 'https://github.com/Seeragroup/TAS.git'
+			sh '''
+				which java
+				which mvn
+				echo "$VERSION"
+				'''
+				}
+			}
+	
+		stage('Testing Code') {
+			agent { node { label 'ansible' } }
+			environment {
+				PATH = "/java/bin:/maven/bin:$PATH"
+				}
+			steps {
+			sh ''' 
+			git branch
+			'''
+			}
+			}
+      }
+   }
+		
