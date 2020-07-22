@@ -2,8 +2,8 @@
 from boto3 import *
 import json
 
-AWS_ACCESS_KEY_ID='AKIA2KWUNF24YFN'
-AWS_SECRET_ACCESS_KEY='8NSPcbMSWBxXiIMCgUmBzz'
+AWS_ACCESS_KEY_ID='AKIA2KWUNN'
+AWS_SECRET_ACCESS_KEY='8NSPcbMSWBxXUmBzz'
     
 def lambda_handler(event, context):
     ip_list=[]
