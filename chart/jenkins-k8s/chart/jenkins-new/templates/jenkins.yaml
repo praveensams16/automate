@@ -1,0 +1,35 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: {{ .Values.space }}
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 4 # Update the replicas from 2 to 4
+  template:
+    metadata:
+      labels:
+        app: nginx
+      namespace: {{ .Values.space }}
+    spec:
+      containers:
+      - name: nginx-testing
+        image: praveensam/jenkins:v3
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: aws-pvc
+          mountPath: /var/jenkins_home
+      initContainers:
+        - name: init-services
+          image: busybox:1.28
+          command: ['sh','-c',"chmod 777 -R /var/jenkins_home"]
+          volumeMounts:
+           - name: aws-pvc
+             mountPath: /var/jenkins_home
+      volumes:
+      - name: aws-pvc
+        persistentVolumeClaim:
+          claimName: aws-pvc
