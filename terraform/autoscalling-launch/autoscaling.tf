@@ -1,15 +1,29 @@
+###### Load Balancer ID
+
+data "aws_elb" elb {
+        name = "pricebook-catalog-staging-elb"
+}
+
 ###### Autoscaling group
 
 resource "aws_autoscaling_group" "pricebook-catalog-as" {
+  name = "pricebook-pricebook-autoscalling-${var.versions}"
   availability_zones = ["us-east-1a"]
   desired_capacity   = 1
   max_size           = 2
   min_size           = 1
+  health_check_type = "ELB"
+  load_balancers = [ data.aws_elb.elb.name ]
+
 
     launch_template {
         id      = "${aws_launch_template.pricebook-catalog-launch-as.id}"
-        version = "$Latest"
+        version = aws_launch_template.pricebook-catalog-launch-as.latest_version
     }
+
+    lifecycle {
+    create_before_destroy = true
+  }
 }
 
 ###### Scaleup

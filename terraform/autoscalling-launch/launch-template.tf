@@ -25,6 +25,11 @@ network_interfaces {
   #ram_disk_id = "test"
 
   #vpc_security_group_ids = ["sg-0d5a9d104d516d8ad"]
+  #default_version = "2"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   tag_specifications {
     resource_type = "instance"
