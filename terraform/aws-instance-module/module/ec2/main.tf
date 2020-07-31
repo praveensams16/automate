@@ -19,6 +19,7 @@ resource "aws_instance" "web" {
   instance_type = var.instance-type
   subnet_id = var.subnet-id
   availability_zone = "${var.region}a"
+  associate_public_ip_address = true
 
   tags = {
     Name = "HelloWorld"
@@ -36,4 +37,8 @@ resource "aws_volume_attachment" "ebs_att" {
 resource "aws_ebs_volume" "example" {
   availability_zone = "${var.region}a"
   size              = 1
+}
+
+output "ip" {
+value = aws_instance.web.public_ip
 }
