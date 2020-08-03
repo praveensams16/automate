@@ -1,0 +1,4 @@
+resource "aws_key_pair" "deployer" {
+  key_name   = "deployer-key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDIztIzzC76/54pNvMhxCQf4dmX36WYM8prA1VJ+klseNKj/u/Uai6H1/cXQIsPzL2QiYrSvEBYEt4zCd17cfjKVHtHMrvfbDVQI+9WaAThLf5ZtMg+8ITUlfnmd4dw4uk7xDYBLqB+cPiIZPnmhMcPXa0GnQAfVFNQsQ5IDSV5z3r/VWfv5vnxCMYLHy2UjK3wEbs3+9s6Nv1VOkegSW/h9OratJxU0EfM0N6oyyMJ0HX18x10cRWYbXoco9p+9lNby4gBJqC5YYhER4Ix/Vv7VXux1//+eAhlW3bpQrefGHkiATsbkdbjQqjWde6wO7O1NtipO2CXggtU0UWiLnxz0d+K4KyCn8xQtTIBgIPTP5iEs85Mqe+gR+Ffc04WpEumk7X+WS3oPp6tVgIRpPhBECez3oJmKvIAQ7q+FAjjh6ji1xq9wPNW0p81gVrYYLZTZqxo6rt739hrQrvAbod8xUWrkMT+TzaJbYHH5x0rGonrPilzs6patAd+I2szIdc= laksh@Monishas-MacBook-Air.local"
+}
