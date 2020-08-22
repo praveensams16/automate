@@ -16,3 +16,7 @@ spec:
           backend:
             serviceName: webapp2-svc 
             servicePort: 81
+        - path: /
+          backend:
+            serviceName: webapp2-svc 
+            servicePort: 81

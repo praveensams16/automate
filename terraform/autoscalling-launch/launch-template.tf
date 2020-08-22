@@ -18,7 +18,7 @@ network_interfaces {
   instance_initiated_shutdown_behavior = "terminate"
 
   
-  instance_type = "c5.large"
+  instance_type = "c5.2xlarge"
 
     key_name = "praveensam"
 
