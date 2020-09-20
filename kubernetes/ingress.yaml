@@ -10,13 +10,13 @@ spec:
       paths:
         - path: /apple
           backend:
-            serviceName: webapp1-svc
+            serviceName: webapp1-svc-n
             servicePort: 80
         - path: /banana
           backend:
-            serviceName: webapp2-svc 
+            serviceName: webapp2-svc-n
             servicePort: 81
         - path: /
           backend:
-            serviceName: webapp2-svc 
+            serviceName: webapp2-svc-n
             servicePort: 81
