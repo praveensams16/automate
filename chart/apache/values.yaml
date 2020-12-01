@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: praveensam/apache
-  tag: v60
+  tag: latest
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
